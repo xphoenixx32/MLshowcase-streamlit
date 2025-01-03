@@ -479,7 +479,7 @@ if df is not None:
                 best_params = pickle.load(f)
         
             # ---------- (2) 讀原始資料 + 前處理（需一致） ----------
-            df = pd.read_csv("mpg.csv")  # 假設同目錄
+            df = sns.load_dataset('mpg')
             X = df.drop(columns=["mpg", "name"])
             X = pd.get_dummies(X, drop_first=True)
             y = df["mpg"]
@@ -565,7 +565,7 @@ if df is not None:
                 best_params = pickle.load(f)
         
             # ---------- (2) 重新讀原始資料 + 前處理 ----------
-            df = pd.read_csv("titanic.csv")  # 假設同目錄
+            df = sns.load_dataset('titanic')
             valid_values = ["yes", "no"]
             df = df[df["alive"].isin(valid_values)]
             df = df.dropna(subset=["alive"])
