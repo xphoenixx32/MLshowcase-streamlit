@@ -599,14 +599,14 @@ if df is not None:
                 st.write(cm)
                 st.markdown(
                     """
-                    #### The confusion matrix provides a detailed breakdown of the model's performance for each class:
+                    The confusion matrix provides a detailed breakdown of the model's performance for each class:
                     
                     - Precision: The proportion of correctly predicted positive observations to the total predicted positives.
                     - Recall: The proportion of correctly predicted positive observations to the all observations in the actual class.
                     - F1-Score: The harmonic mean of precision and recall, balancing both metrics.
                     - Support: The actual number of occurrences of each class in the dataset.
                     
-                    #### Additional metrics:
+                    Additional metrics:
                     
                     - Accuracy: The overall percentage of correctly predicted observations.
                     - Macro Average: Average performance across all classes, treating each class equally.
@@ -618,16 +618,16 @@ if df is not None:
                 st.write("2️⃣", f"**F1-score**: *{f1:.3f}*")
                 st.markdown(
                     """
-                    #### The overall F1-score for the model is 0.924, indicating strong balance between precision and recall.
+                    The overall F1-score for the model is 0.924, indicating strong balance between precision and recall.
                     """)
-                
-                st.write("3️⃣", "**Best Model Parameters** *(GridSearchCV)*:", best_params)
 
                 st.divider()
                 
+                st.write("3️⃣", "**Best Model Parameters** *(GridSearchCV)*:", best_params)
+                
                 st.markdown(
                     """
-                    #### Using GridSearchCV, the optimal hyperparameters for the RandomForest Classifier were identified as:
+                    Using GridSearchCV, the optimal hyperparameters for the RandomForest Classifier were identified as:
                     - max_depth: The maximum depth of each tree is set to 5, controlling model complexity.
                     - n_estimators: The number of trees in the forest is set to 100, balancing computational cost and performance.
                     """)
