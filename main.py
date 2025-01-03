@@ -464,8 +464,6 @@ if df is not None:
         # MPG (Regression)
         # -------------------------------------------
         if selected_dataset == "mpg":
-            st.subheader("Regression Showcase (MPG)")
-        
             # ---------- (1) 從 assets/ 載入離線產生的檔案 -------------
             with open("assets/mpg_best_model.pkl", "rb") as f:
                 best_model = pickle.load(f)
@@ -550,8 +548,6 @@ if df is not None:
         # Titanic (Classification)
         # -------------------------------------------
         elif selected_dataset == "titanic":
-            st.subheader("Classification Showcase (Titanic)")
-        
             # ---------- (1) 從 assets/ 載入離線產生的檔案 -------------
             with open("assets/titanic_best_model.pkl", "rb") as f:
                 best_model = pickle.load(f)
