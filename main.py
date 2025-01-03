@@ -1,5 +1,6 @@
 # Basic
 import streamlit as st
+import pickle
 import seaborn as sns
 import pandas as pd
 import numpy as np
@@ -455,241 +456,186 @@ if df is not None:
     #------------------------------------------------------------------------------------------------------#
     if selected == "ML & XAI":
         tab30, tab31, tab32, tab33 = st.tabs(['⌈ ⁰ Model Summary ⌉',
-                                              '⌈ ¹ Feature Importance ⌉',
-                                              '⌈ ² Intersection Effect ⌉',
-                                              '⌈ ³ Prediction on Sample ⌉'
-        ])
-        #------------------------------------------------------------------------------------------------------#
+                                             '⌈ ¹ Feature Importance ⌉',
+                                             '⌈ ² Intersection Effect ⌉',
+                                             '⌈ ³ Prediction on Sample ⌉'])
         
-        def grid_search_with_progress(grid_search, X, y):
-            """
-            執行 GridSearch 並顯示進度條（僅示範用）
-            """
-            progress_bar = st.progress(0)
-            progress_text = st.empty()
-            total_iterations = len(grid_search.param_grid['n_estimators']) * len(grid_search.param_grid['max_depth'])
-            iteration = 0
-
-            # fit() 內部才是實際跑 CV，這裡只是單純做個進度示範
-            grid_search.fit(X, y)
-
-            for params in grid_search.cv_results_['params']:
-                iteration += 1
-                progress = iteration / total_iterations
-                progress_bar.progress(progress)
-                progress_text.text(f"Running progress: {int(progress * 100)}%")
-
-            return grid_search.best_estimator_
-        #------------------------------------------------------------------------------------------------------#
+        # -------------------------------------------
+        # MPG (Regression)
+        # -------------------------------------------
+        if selected_dataset == "mpg":
+            st.subheader("Regression Showcase (MPG)")
         
-        if selected_dataset == 'mpg':
-            X = df.drop(columns=['mpg', 'name'])
+            # ---------- (1) 從 assets/ 載入離線產生的檔案 -------------
+            with open("assets/mpg_best_model.pkl", "rb") as f:
+                best_model = pickle.load(f)
+        
+            with open("assets/mpg_explainer.pkl", "rb") as f:
+                explainer = pickle.load(f)
+        
+            shap_values = np.load("assets/mpg_shap_values.npy", allow_pickle=True)
+        
+            with open("assets/mpg_best_params.pkl", "rb") as f:
+                best_params = pickle.load(f)
+        
+            # ---------- (2) 讀原始資料 + 前處理（需一致） ----------
+            df = pd.read_csv("mpg.csv")  # 假設同目錄
+            X = df.drop(columns=["mpg", "name"])
             X = pd.get_dummies(X, drop_first=True)
-            y = df['mpg']
-
-            model = LGBMRegressor(random_state=42)
-            param_grid = {
-                'n_estimators': [50, 100],
-                'max_depth': [3, 5, 10]
-            }
-            grid_search = GridSearchCV(model, param_grid, cv=3, n_jobs=-1)
-            best_model = grid_search_with_progress(grid_search, X, y)
-
-            # ---------------- SHAP ----------------
-            explainer = shap.TreeExplainer(best_model)
-            shap_values = explainer.shap_values(X)
-
+            y = df["mpg"]
+        
+            # ---------- (3) 可視化 / 分析 ----------
             with tab30:
                 st.caption("*This is a Regression Showcase*")
                 st.write("### *LightGBM Regressor*")
+        
                 y_pred = best_model.predict(X)
                 r2 = r2_score(y, y_pred)
                 mae = mean_absolute_error(y, y_pred)
                 residuals = y - y_pred
+        
                 st.write("1️⃣", f"**R-squared**: *{r2:.2f}*")
                 st.write("2️⃣", f"**Residual Mean**: *{np.mean(residuals):.2f}*")
                 st.write("3️⃣", f"**Mean Absolute Error (MAE)**: *{mae:.2f}*")
-                st.write("**Best Model Parameters** *(GridSearchCV)*", grid_search.best_params_)
-
+                st.write("**Best Model Parameters** *(GridSearchCV)*", best_params)
+        
             with tab31:
                 st.caption("*This is a Regression Showcase*")
                 st.write("### *SHAP Summary Plot*")
-
+        
                 fig_summary, ax_summary = plt.subplots()
                 shap.summary_plot(shap_values, X, show=False)
                 st.pyplot(fig_summary)
-
+        
             with tab32:
                 st.caption("*This is a Regression Showcase*")
                 st.write("### *Partial Dependence Plot*")
+        
                 feature_1 = st.selectbox("Select Feature 1:", X.columns)
                 feature_2 = st.selectbox("Select Feature 2:", X.columns)
-
+        
                 if feature_1 and feature_2:
-                    # 1) 建立新的 figure
                     fig_pdp, ax_pdp = plt.subplots(figsize=(6, 4))
-                    
-                    # 2) 針對二個特徵 (2D) 做部分依存圖
-                    PartialDependenceDisplay.from_estimator(
-                        estimator=best_model,
-                        X=X,
-                        features=[(feature_1, feature_2)],
-                        kind="average",   # "average" 或 "individual"
-                        ax=ax_pdp
-                        # 若是二元分類，且想對「正類(1)」繪圖，可再加上 target=1
-                    )
-                    
-                    # 3) 在 Streamlit 中顯示
-                    st.pyplot(fig_pdp)
-
-            with tab33:
-                st.caption("*This is a Regression Showcase*")
-                st.write("### *SHAP Waterfall Plot*")
-                row_index = st.number_input(
-                    "Select Row Index:", 
-                    min_value=0, 
-                    max_value=len(X) - 1, 
-                    step=1
-                )
-                if row_index is not None:
-                    fig_waterfall, ax_waterfall = plt.subplots()
-                    
-                    shap.waterfall_plot(
-                        shap.Explanation(
-                            base_values=explainer.expected_value,  
-                            values=shap_values[row_index],         
-                            data=X.iloc[row_index],                
-                            feature_names=X.columns.tolist()
-                        ),
-                        show=False
-                    )
-                    
-                    st.pyplot(fig_waterfall)
-
-        # ----------------------------------
-        # 針對 titanic 做 Classification (RF)
-        # ----------------------------------
-        elif selected_dataset == 'titanic':
-            # 載入並過濾 survived 欄位使其僅包含 "yes"、"no" 避免 map 後變 NaN
-            valid_values = ["yes", "no"]
-            df = df[df["alive"].isin(valid_values)]
-            
-            # 先檢查 survived 欄位是否有 NaN (或無效值)
-            df = df.dropna(subset=["alive"])
-
-            # ====== 前處理 & 特徵工程 ======
-            # (1) 填補可能的空值: age, embarked, deck, embark_town
-            #     這樣可避免直接 dropna() 後導致資料量過少
-            df['age'] = df['age'].fillna(df['age'].median())                # 用中位數填補年齡
-            df['embarked'] = df['embarked'].fillna(df['embarked'].mode()[0])  # 用眾數填補
-            df['embark_town'] = df['embark_town'].fillna('Unknown')         # 同上
-
-            # (2) survived (yes/no) → 1/0
-            df['alive'] = df['alive'].map({'yes': 1, 'no': 0})
-
-            # (3) sex: male → 0, female → 1
-            df['sex'] = df['sex'].map({'male': 0, 'female': 1})
-
-            # (4) 刪除不需要的衍生或重複欄位 (依需求刪除)
-            #     例如 who, adult_male, alive, alone
-            columns_to_drop = ['who', 'adult_male', 'survived', 'alone']
-            df.drop(columns=[col for col in columns_to_drop if col in df.columns], inplace=True)
-
-            # (5) 產生新特徵: family_size = sibsp + parch + 1 (可選)
-            df['family_size'] = df['sibsp'] + df['parch'] + 1
-
-            # 也可在這裡進行篩選、分桶等進階特徵工程
-
-            # ====== 再把剩餘 NaN 全部丟棄 (若你真的想確保資料完全無 NaN) ======
-            df = df.dropna(axis=0, how="any")
-
-            # ====== 分割 X, y ======
-            y = df["alive"]
-            # 檢查 y 是否還有 NaN
-            if y.isnull().any():
-                st.write("y still contains NaN! 請檢查 alive 欄位的資料內容。")
-                st.stop()
-
-            # 其餘欄位當作特徵
-            X = df.drop(columns=["alive", "class"])
-
-            # ====== One-Hot Encoding ======
-            # 下面列出可能需要做 One-Hot 的欄位: embarked, class, deck, embark_town, pclass 等
-            # 不過已在 deck, embark_town 補 'Unknown'，class & pclass 可能2擇1即可
-            # 這裡示範對所有物件類欄位做 One-Hot
-            X = pd.get_dummies(X, drop_first=True)
-
-            # 最終檢查 X 是否仍有 NaN
-            if X.isnull().any().any():
-                st.write("X still contains NaN! 以下是各欄位缺失值數量：")
-                st.write(X.isnull().sum())
-                st.stop()
-
-            # ====== 訓練 RandomForestClassifier ======
-            model = RandomForestClassifier(random_state=42)
-            param_grid = {
-                'n_estimators': [50, 100],
-                'max_depth': [3, 5, 10]
-            }
-            grid_search = GridSearchCV(model, param_grid, cv=5, n_jobs=-1)
-            best_model = grid_search_with_progress(grid_search, X, y)
-
-            # ====== SHAP 解釋 ======
-            explainer = shap.TreeExplainer(best_model)
-            shap_values = explainer.shap_values(X)
-
-            # ----- tab01: Model Summary -----
-            with tab30:
-                st.caption("*This is a Classification Showcase*")
-                st.write("### *RandomForest Classifier*")
-                y_pred = best_model.predict(X)
-                report_dict = classification_report(y, y_pred, output_dict=True)
-                cm = pd.DataFrame(report_dict).transpose()
-                f1 = f1_score(y, y_pred)
-                st.write("1️⃣", "**Confusion Matrix**:")
-                st.write(cm)
-                st.write("2️⃣", f"**F1-score**:", f"*{f1:.3f}*")
-                st.write("**Best Model Parameters** *(GridSearchCV)*:", grid_search.best_params_)
-
-            # ----- tab02: SHAP Summary -----
-            with tab31:
-                st.caption("*This is a Classification Showcase*")
-                st.write("### *SHAP Summary Plot*")
-                fig_summary, ax_summary = plt.subplots()
-                shap.summary_plot(shap_values[:, :, 1], X, show=False)
-                st.pyplot(fig_summary)
-
-            # ----- tab03: Partial Dependence Plot (2D) -----
-            with tab32:
-                st.caption("*This is a Classification Showcase*")
-                st.write("### *Partial Dependence Plot*")
-                feature_1 = st.selectbox("Select Feature 1:", X.columns)
-                feature_2 = st.selectbox("Select Feature 2:", X.columns)
-
-                if feature_1 and feature_2:
-                    from sklearn.inspection import PartialDependenceDisplay
-                    fig_pdp, ax_pdp = plt.subplots(figsize=(6, 4))
-
                     PartialDependenceDisplay.from_estimator(
                         estimator=best_model,
                         X=X,
                         features=[(feature_1, feature_2)],
                         kind="average",
-                        target=1,
                         ax=ax_pdp
                     )
-
                     st.pyplot(fig_pdp)
-
-            # ----- tab04: SHAP Waterfall -----
+        
+            with tab33:
+                st.caption("*This is a Regression Showcase*")
+                st.write("### *SHAP Waterfall Plot*")
+        
+                row_index = st.number_input("Select Row Index:", 
+                                            min_value=0, 
+                                            max_value=len(X) - 1, 
+                                            step=1)
+                if row_index is not None:
+                    fig_waterfall, ax_waterfall = plt.subplots()
+                    shap.waterfall_plot(
+                        shap.Explanation(
+                            base_values=explainer.expected_value,
+                            values=shap_values[row_index],
+                            data=X.iloc[row_index],
+                            feature_names=X.columns.tolist()
+                        ),
+                        show=False
+                    )
+                    st.pyplot(fig_waterfall)
+        
+        # -------------------------------------------
+        # Titanic (Classification)
+        # -------------------------------------------
+        elif selected_dataset == "titanic":
+            st.subheader("Classification Showcase (Titanic)")
+        
+            # ---------- (1) 從 assets/ 載入離線產生的檔案 -------------
+            with open("assets/titanic_best_model.pkl", "rb") as f:
+                best_model = pickle.load(f)
+        
+            with open("assets/titanic_explainer.pkl", "rb") as f:
+                explainer = pickle.load(f)
+        
+            shap_values = np.load("assets/titanic_shap_values.npy", allow_pickle=True)
+        
+            with open("assets/titanic_best_params.pkl", "rb") as f:
+                best_params = pickle.load(f)
+        
+            # ---------- (2) 重新讀原始資料 + 前處理 ----------
+            df = pd.read_csv("titanic.csv")  # 假設同目錄
+            valid_values = ["yes", "no"]
+            df = df[df["alive"].isin(valid_values)]
+            df = df.dropna(subset=["alive"])
+            df['age'] = df['age'].fillna(df['age'].median())
+            df['embarked'] = df['embarked'].fillna(df['embarked'].mode()[0])
+            df['embark_town'] = df['embark_town'].fillna('Unknown')
+            df['alive'] = df['alive'].map({'yes': 1, 'no': 0})
+            df['sex'] = df['sex'].map({'male': 0, 'female': 1})
+            columns_to_drop = ['who', 'adult_male', 'survived', 'alone']
+            df.drop(columns=[col for col in columns_to_drop if col in df.columns], inplace=True)
+            df['family_size'] = df['sibsp'] + df['parch'] + 1
+            df = df.dropna(axis=0, how="any")
+        
+            y = df["alive"]
+            X = df.drop(columns=["alive", "class"])
+            X = pd.get_dummies(X, drop_first=True)
+        
+            # ---------- (3) 做可視化 ----------
+            with tab30:
+                st.caption("*This is a Classification Showcase*")
+                st.write("### *RandomForest Classifier*")
+        
+                y_pred = best_model.predict(X)
+                report_dict = classification_report(y, y_pred, output_dict=True)
+                cm = pd.DataFrame(report_dict).transpose()
+                f1 = f1_score(y, y_pred)
+        
+                st.write("1️⃣", "**Confusion Matrix**:")
+                st.write(cm)
+                st.write("2️⃣", f"**F1-score**: *{f1:.3f}*")
+                st.write("**Best Model Parameters** *(GridSearchCV)*:", best_params)
+        
+            with tab31:
+                st.caption("*This is a Classification Showcase*")
+                st.write("### *SHAP Summary Plot*")
+        
+                fig_summary, ax_summary = plt.subplots()
+                # 二元分類下，shap_values.shape = (2, n_samples, n_features)
+                shap.summary_plot(shap_values[1], X, show=False)
+                st.pyplot(fig_summary)
+        
+            with tab32:
+                st.caption("*This is a Classification Showcase*")
+                st.write("### *Partial Dependence Plot*")
+        
+                feature_1 = st.selectbox("Select Feature 1:", X.columns)
+                feature_2 = st.selectbox("Select Feature 2:", X.columns)
+        
+                if feature_1 and feature_2:
+                    fig_pdp, ax_pdp = plt.subplots(figsize=(6, 4))
+                    PartialDependenceDisplay.from_estimator(
+                        estimator=best_model,
+                        X=X,
+                        features=[(feature_1, feature_2)],
+                        kind="average",
+                        target=1,  
+                        ax=ax_pdp
+                    )
+                    st.pyplot(fig_pdp)
+        
             with tab33:
                 st.caption("*This is a Classification Showcase*")
                 st.write("### *SHAP Waterfall Plot*")
-                row_index = st.number_input("Select Row Index:", min_value=0, max_value=len(X)-1, step=1)
-
+        
+                row_index = st.number_input("Select Row Index:", 
+                                            min_value=0, 
+                                            max_value=len(X) - 1, 
+                                            step=1)
                 if row_index is not None:
                     fig_waterfall, ax_waterfall = plt.subplots()
-                    
                     shap.waterfall_plot(
                         shap.Explanation(
                             base_values=explainer.expected_value[1],
@@ -699,7 +645,6 @@ if df is not None:
                         ),
                         show=False
                     )
-                    
                     st.pyplot(fig_waterfall)
     #------------------------------------------------------------------------------------------------------#
 else:
