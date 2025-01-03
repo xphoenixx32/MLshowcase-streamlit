@@ -456,9 +456,9 @@ if df is not None:
     #------------------------------------------------------------------------------------------------------#
     if selected == "ML & XAI":
         tab30, tab31, tab32, tab33 = st.tabs(['⌈ ⁰ Model Summary ⌉',
-                                             '⌈ ¹ Feature Importance ⌉',
-                                             '⌈ ² Intersection Effect ⌉',
-                                             '⌈ ³ Prediction on Sample ⌉'])
+                                              '⌈ ¹ Feature Importance ⌉',
+                                              '⌈ ² Interaction Effect ⌉',
+                                              '⌈ ³ Prediction on Sample ⌉'])
         
         # -------------------------------------------
         # MPG (Regression)
