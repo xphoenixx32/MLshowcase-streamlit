@@ -599,6 +599,12 @@ if df is not None:
                 st.write(cm)
                 st.write("2️⃣", f"**F1-score**: *{f1:.3f}*")
                 st.write("**Best Model Parameters** *(GridSearchCV)*:", best_params)
+
+                st.info(st.markdown('''
+                Using GridSearchCV, the optimal hyperparameters for the RandomForest Classifier were identified as:
+                - max_depth: The maximum depth of each tree is set to 5, controlling model complexity.
+                - n_estimators: The number of trees in the forest is set to 100, balancing computational cost and performance.
+                '''), icon = "1️⃣")
         
             with tab31:
                 st.caption("*Classification Showcase*")
