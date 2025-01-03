@@ -493,9 +493,38 @@ if df is not None:
                 residuals = y - y_pred
         
                 st.write("1️⃣", f"**R-squared**: *{r2:.2f}*")
+                st.markdown(
+                    """
+                    - R-squared measures the proportion of variance in the target variable that is explained by the model.
+                    - A score of 0.94 indicates that 94% of the variability in the target variable is explained by the model, which demonstrates a strong fit.
+                    """)
+
+                st.divider()
+                
                 st.write("2️⃣", f"**Residual Mean**: *{np.mean(residuals):.2f}*")
+                st.markdown(
+                    """
+                    - This represents the mean of the residuals (difference between observed and predicted values).
+                    - A value close to 0 implies that the model's predictions, on average, are unbiased.
+                    """)
+
+                st.divider()
+                
                 st.write("3️⃣", f"**Mean Absolute Error (MAE)**: *{mae:.2f}*")
-                st.write("**Best Model Parameters** *(GridSearchCV)*", best_params)
+                st.markdown(
+                    """
+                    - MAE measures the average magnitude of the errors in a set of predictions, without considering their direction.
+                    - An MAE of 1.37 indicates that the model's predictions deviate from the actual values by an average of 1.37 units.
+                    """)
+
+                st.divider()
+                
+                st.write("4️⃣", "**Best Model Parameters** *(GridSearchCV)*", best_params)
+                st.markdown(
+                    """
+                    - max_depth: This parameter controls the maximum depth of a tree. Limiting the depth helps reduce overfitting while maintaining model performance.
+                    - n_estimators: This parameter specifies the number of boosting iterations (trees). A value of 100 strikes a balance between computational efficiency and prediction accuracy.
+                    """)
         
             with tab31:
                 st.caption("*Regression Showcase*")
@@ -624,12 +653,10 @@ if df is not None:
                 st.divider()
                 
                 st.write("3️⃣", "**Best Model Parameters** *(GridSearchCV)*:", best_params)
-                
                 st.markdown(
                     """
-                    Using GridSearchCV, the optimal hyperparameters for the RandomForest Classifier were identified as:
-                    - max_depth: The maximum depth of each tree is set to 5, controlling model complexity.
-                    - n_estimators: The number of trees in the forest is set to 100, balancing computational cost and performance.
+                    - max_depth: This parameter controls the maximum depth of a tree. Limiting the depth helps reduce overfitting while maintaining model performance.
+                    - n_estimators: This parameter specifies the number of boosting iterations (trees). A value of 100 strikes a balance between computational efficiency and prediction accuracy.
                     """)
         
             with tab31:
