@@ -19,13 +19,12 @@ from lightgbm import LGBMRegressor
 from streamlit_option_menu import option_menu
 #------------------------------------------------------------------------------------------------------#
 
-st.title("Machine Learning Show Case")
+st.title("Machine Learning & XAI showcase")
 sns.set_theme(style = "whitegrid")
 #------------------------------------------------------------------------------------------------------#
 
 # Predefined dataset selection
-dataset_options = ['mpg',
-                   'titanic']
+dataset_options = ['mpg', 'titanic']
 
 # Dataset summaries
 dataset_summaries = {
