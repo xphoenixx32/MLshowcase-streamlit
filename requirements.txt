@@ -6,7 +6,6 @@ matplotlib
 shap
 pdpbox
 scipy
-sklearn
 scikit-learn
 lightgbm
 streamlit_option_menu
