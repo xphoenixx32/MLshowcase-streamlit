@@ -562,21 +562,27 @@ if df is not None:
         
             # ---------- (2) 重新讀原始資料 + 前處理 ----------
             df = sns.load_dataset('titanic')
+            
             valid_values = ["yes", "no"]
             df = df[df["alive"].isin(valid_values)]
             df = df.dropna(subset=["alive"])
+            
             df['age'] = df['age'].fillna(df['age'].median())
             df['embarked'] = df['embarked'].fillna(df['embarked'].mode()[0])
             df['embark_town'] = df['embark_town'].fillna('Unknown')
+            
             df['alive'] = df['alive'].map({'yes': 1, 'no': 0})
             # df['sex'] = df['sex'].map({'male': 0, 'female': 1})
+            
             columns_to_drop = ['adult_male', 'survived']
             df.drop(columns=[col for col in columns_to_drop if col in df.columns], inplace=True)
+            
             df['family_size'] = df['sibsp'] + df['parch'] + 1
             df = df.dropna(axis=0, how="any")
         
             y = df["alive"]
             X = df.drop(columns=["alive", "class", "sex"])
+            
             X = pd.get_dummies(X, drop_first=True)
         
             # ---------- (3) 做可視化 ----------
