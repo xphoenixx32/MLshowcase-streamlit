@@ -569,14 +569,14 @@ if df is not None:
             df['embarked'] = df['embarked'].fillna(df['embarked'].mode()[0])
             df['embark_town'] = df['embark_town'].fillna('Unknown')
             df['alive'] = df['alive'].map({'yes': 1, 'no': 0})
-            df['sex'] = df['sex'].map({'male': 0, 'female': 1})
-            columns_to_drop = ['who', 'adult_male', 'survived', 'alone']
+            # df['sex'] = df['sex'].map({'male': 0, 'female': 1})
+            columns_to_drop = ['adult_male', 'survived']
             df.drop(columns=[col for col in columns_to_drop if col in df.columns], inplace=True)
             df['family_size'] = df['sibsp'] + df['parch'] + 1
             df = df.dropna(axis=0, how="any")
         
             y = df["alive"]
-            X = df.drop(columns=["alive", "class"])
+            X = df.drop(columns=["alive", "class", "sex"])
             X = pd.get_dummies(X, drop_first=True)
         
             # ---------- (3) 做可視化 ----------
