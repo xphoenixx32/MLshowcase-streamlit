@@ -556,6 +556,8 @@ if df is not None:
             with tab32:
                 st.caption("*Regression Showcase*")
                 st.write("### *Partial Dependence Plot*")
+                
+                st.info("ℹ️ A Partial Dependence Plot (PDP) shows how one or two features influence the predicted outcome of a machine learning model, while keeping all other features constant. This helps you understand the relationship between the selected feature(s) and the model's predictions.")
         
                 feature_1 = st.selectbox("Select Feature 1:", X.columns)
                 feature_2 = st.selectbox("Select Feature 2:", X.columns)
@@ -684,7 +686,7 @@ if df is not None:
 
                 st.success("✅ being a man (*who_man*) may negatively influence survival predictions (negative SHAP values), while being a woman (*who_woman*) has a positive influence.")
                 st.info("ℹ️ *age* plays an essential role in survival prediction, and higher ticket prices (*fare*) correlate with better survival odds.")
-        
+
                 fig_summary, ax_summary = plt.subplots()
                 # 二元分類下，shap_values.shape = (2, n_samples, n_features)
                 shap.summary_plot(shap_values[:, :, 1], X, show=False)
@@ -712,6 +714,8 @@ if df is not None:
             with tab32:
                 st.caption("*Classification Showcase*")
                 st.write("### *Partial Dependence Plot*")
+
+                st.info("ℹ️ A Partial Dependence Plot (PDP) shows how one or two features influence the predicted outcome of a machine learning model, while keeping all other features constant. This helps you understand the relationship between the selected feature(s) and the model's predictions.")
         
                 feature_1 = st.selectbox("Select Feature 1:", X.columns)
                 feature_2 = st.selectbox("Select Feature 2:", X.columns)
