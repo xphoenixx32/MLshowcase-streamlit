@@ -597,52 +597,40 @@ if df is not None:
         
                 st.write("1️⃣", "**Confusion Matrix**:")
                 st.write(cm)
-                st.write("2️⃣", f"**F1-score**: *{f1:.3f}*")
-                st.write("**Best Model Parameters** *(GridSearchCV)*:", best_params)
-
                 st.markdown(
                     """
-                    <div style="background-color:#f0f8ff; padding:15px; border-radius:10px; margin-bottom:10px;">
-                        <h2 style="color:#2c3e50;">Section 1: Confusion Matrix</h2>
-                        <p style="color:#34495e; font-size:16px;">
-                            The confusion matrix provides a detailed breakdown of the model's performance for each class:
-                        </p>
-                        <ul style="color:#34495e; font-size:16px;">
-                            <li><b>Precision:</b> Proportion of correctly predicted positive observations to the total predicted positives.</li>
-                            <li><b>Recall:</b> Proportion of correctly predicted positive observations to all observations in the actual class.</li>
-                            <li><b>F1-Score:</b> Harmonic mean of precision and recall, balancing both metrics.</li>
-                            <li><b>Support:</b> Actual number of occurrences of each class in the dataset.</li>
-                        </ul>
-                        <p style="color:#34495e; font-size:16px;">
-                            Additional metrics:
-                        </p>
-                        <ul style="color:#34495e; font-size:16px;">
-                            <li><b>Accuracy:</b> Overall percentage of correctly predicted observations.</li>
-                            <li><b>Macro Average:</b> Average performance across all classes, treating each class equally.</li>
-                            <li><b>Weighted Average:</b> Average performance weighted by the support of each class.</li>
-                        </ul>
-                    </div>
+                    #### The confusion matrix provides a detailed breakdown of the model's performance for each class:
+                    
+                    - Precision: The proportion of correctly predicted positive observations to the total predicted positives.
+                    - Recall: The proportion of correctly predicted positive observations to the all observations in the actual class.
+                    - F1-Score: The harmonic mean of precision and recall, balancing both metrics.
+                    - Support: The actual number of occurrences of each class in the dataset.
+                    
+                    #### Additional metrics:
+                    
+                    - Accuracy: The overall percentage of correctly predicted observations.
+                    - Macro Average: Average performance across all classes, treating each class equally.
+                    - Weighted Average: Average performance weighted by the support of each class.
+                    """)
+
+                st.divider()
                 
-                    <div style="background-color:#e8f4f8; padding:15px; border-radius:10px; margin-bottom:10px;">
-                        <h2 style="color:#2c3e50;">Section 2: F1-Score</h2>
-                        <p style="color:#34495e; font-size:16px;">
-                            The overall F1-score for the model is <b>0.924</b>, indicating a strong balance between precision and recall.
-                        </p>
-                    </div>
+                st.write("2️⃣", f"**F1-score**: *{f1:.3f}*")
+                st.markdown(
+                    """
+                    #### The overall F1-score for the model is 0.924, indicating strong balance between precision and recall.
+                    """)
                 
-                    <div style="background-color:#f8f9fa; padding:15px; border-radius:10px; margin-bottom:10px;">
-                        <h2 style="color:#2c3e50;">Section 3: Best Model Parameters</h2>
-                        <p style="color:#34495e; font-size:16px;">
-                            Using <b>GridSearchCV</b>, the optimal hyperparameters for the RandomForest Classifier were identified as:
-                        </p>
-                        <ul style="color:#34495e; font-size:16px;">
-                            <li><b>max_depth:</b> 5</li>
-                            <li><b>n_estimators:</b> 100</li>
-                        </ul>
-                    </div>
-                    """,
-                    unsafe_allow_html=True
-                )
+                st.write("3️⃣", "**Best Model Parameters** *(GridSearchCV)*:", best_params)
+
+                st.divider()
+                
+                st.markdown(
+                    """
+                    #### Using GridSearchCV, the optimal hyperparameters for the RandomForest Classifier were identified as:
+                    - max_depth: The maximum depth of each tree is set to 5, controlling model complexity.
+                    - n_estimators: The number of trees in the forest is set to 100, balancing computational cost and performance.
+                    """)
         
             with tab31:
                 st.caption("*Classification Showcase*")
