@@ -578,7 +578,7 @@ if df is not None:
                 st.write("### *SHAP Waterfall Plot*")
                 st.info("ℹ️ Waterfall plot illustrates how specific features contribute to the final prediction for a single instance in a machine learning model.")
         
-                row_index = st.number_input("Select Row Index:", 
+                row_index = st.number_input("Select a Row Index of a Sample ⤵️", 
                                             min_value=0, 
                                             max_value=len(X) - 1, 
                                             step=1)
@@ -738,7 +738,7 @@ if df is not None:
                 st.write("### *SHAP Waterfall Plot*")
                 st.info("ℹ️ Waterfall plot illustrates how specific features contribute to the final prediction for a single instance in a machine learning model.")
         
-                row_index = st.number_input("Select Row Index:", 
+                row_index = st.number_input("Select a Row Index of a Sample ⤵️", 
                                             min_value=0, 
                                             max_value=len(X) - 1, 
                                             step=1)
