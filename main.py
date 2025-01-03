@@ -91,8 +91,8 @@ st.subheader("🎮 Switch Tab")
 with st.container():
     selected = option_menu(
         menu_title = None,
-        options = ["Summary", "Plot", "ML & XAI"],
-        icons = ["list-stars", "bar-chart-line-fill", "robot"],
+        options = ["Summary", "EDA Plot", "ML & XAI"],
+        icons = ["blockquote-left", "bar-chart-line-fill", "diagram-3-fill"],
         orientation = 'horizontal'
     )
 
@@ -175,7 +175,7 @@ if df is not None:
                 group_stats.set_index(selected_column, inplace = True)
                 st.write(group_stats.sort_values('counts', ascending = False))
     #------------------------------------------------------------------------------------------------------#
-    if selected == "Plot":
+    if selected == "EDA Plot":
         tab10, tab11, tab12, tab13, tab14 = st.tabs(['⌈ ⁰ ANOVA & Violin Plot ⌉', 
                                                      '⌈ ¹ Area Plot ⌉', 
                                                      '⌈ ² Density Plot ⌉', 
@@ -481,10 +481,10 @@ if df is not None:
             X = df.drop(columns=["mpg", "name"])
             X = pd.get_dummies(X, drop_first=True)
             y = df["mpg"]
-        
+            
             # ---------- (3) 可視化 / 分析 ----------
             with tab30:
-                st.caption("*This is a Regression Showcase*")
+                st.caption("*Regression Showcase*")
                 st.write("### *LightGBM Regressor*")
         
                 y_pred = best_model.predict(X)
@@ -498,7 +498,7 @@ if df is not None:
                 st.write("**Best Model Parameters** *(GridSearchCV)*", best_params)
         
             with tab31:
-                st.caption("*This is a Regression Showcase*")
+                st.caption("*Regression Showcase*")
                 st.write("### *SHAP Summary Plot*")
         
                 fig_summary, ax_summary = plt.subplots()
@@ -506,7 +506,7 @@ if df is not None:
                 st.pyplot(fig_summary)
         
             with tab32:
-                st.caption("*This is a Regression Showcase*")
+                st.caption("*Regression Showcase*")
                 st.write("### *Partial Dependence Plot*")
         
                 feature_1 = st.selectbox("Select Feature 1:", X.columns)
@@ -524,7 +524,7 @@ if df is not None:
                     st.pyplot(fig_pdp)
         
             with tab33:
-                st.caption("*This is a Regression Showcase*")
+                st.caption("*Regression Showcase*")
                 st.write("### *SHAP Waterfall Plot*")
         
                 row_index = st.number_input("Select Row Index:", 
@@ -587,7 +587,7 @@ if df is not None:
         
             # ---------- (3) 做可視化 ----------
             with tab30:
-                st.caption("*This is a Classification Showcase*")
+                st.caption("*Classification Showcase*")
                 st.write("### *RandomForest Classifier*")
         
                 y_pred = best_model.predict(X)
@@ -601,7 +601,7 @@ if df is not None:
                 st.write("**Best Model Parameters** *(GridSearchCV)*:", best_params)
         
             with tab31:
-                st.caption("*This is a Classification Showcase*")
+                st.caption("*Classification Showcase*")
                 st.write("### *SHAP Summary Plot*")
         
                 fig_summary, ax_summary = plt.subplots()
@@ -610,7 +610,7 @@ if df is not None:
                 st.pyplot(fig_summary)
         
             with tab32:
-                st.caption("*This is a Classification Showcase*")
+                st.caption("*Classification Showcase*")
                 st.write("### *Partial Dependence Plot*")
         
                 feature_1 = st.selectbox("Select Feature 1:", X.columns)
@@ -629,7 +629,7 @@ if df is not None:
                     st.pyplot(fig_pdp)
         
             with tab33:
-                st.caption("*This is a Classification Showcase*")
+                st.caption("*Classification Showcase*")
                 st.write("### *SHAP Waterfall Plot*")
         
                 row_index = st.number_input("Select Row Index:", 
