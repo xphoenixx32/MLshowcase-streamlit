@@ -576,6 +576,7 @@ if df is not None:
             with tab33:
                 st.caption("*Regression Showcase*")
                 st.write("### *SHAP Waterfall Plot*")
+                st.info("ℹ️ Waterfall plot illustrates how specific features contribute to the final prediction for a single instance in a machine learning model.")
         
                 row_index = st.number_input("Select Row Index:", 
                                             min_value=0, 
@@ -735,6 +736,7 @@ if df is not None:
             with tab33:
                 st.caption("*Classification Showcase*")
                 st.write("### *SHAP Waterfall Plot*")
+                st.info("ℹ️ Waterfall plot illustrates how specific features contribute to the final prediction for a single instance in a machine learning model.")
         
                 row_index = st.number_input("Select Row Index:", 
                                             min_value=0, 
