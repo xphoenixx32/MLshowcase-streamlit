@@ -1,0 +1,12 @@
+streamlit
+seaborn
+pandas
+numpy
+matplotlib
+shap
+pdpbox
+scipy
+sklearn
+scikit-learn
+lightgbm
+streamlit_option_menu
