@@ -606,7 +606,7 @@ if df is not None:
         
                 fig_summary, ax_summary = plt.subplots()
                 # 二元分類下，shap_values.shape = (2, n_samples, n_features)
-                shap.summary_plot(shap_values[1], X, show=False)
+                shap.summary_plot(shap_values[:, :, 1], X, show=False)
                 st.pyplot(fig_summary)
         
             with tab32:
@@ -641,8 +641,8 @@ if df is not None:
                     shap.waterfall_plot(
                         shap.Explanation(
                             base_values=explainer.expected_value[1],
-                            values=shap_values[1][row_index],
-                            data=X.iloc[row_index],
+                            values=shap_values[1][row_index, :],
+                            data=X.iloc[row_index, :],
                             feature_names=X.columns.tolist()
                         ),
                         show=False
