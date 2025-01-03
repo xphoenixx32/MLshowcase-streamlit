@@ -602,15 +602,42 @@ if df is not None:
 
                 st.markdown(
                     """
-                    <div style="background-color:#f0f8ff; padding:15px; border-radius:10px;">
-                        <h2 style="color:#2c3e50; text-align:center;">RandomForest Classifier</h2>
+                    <div style="background-color:#f0f8ff; padding:15px; border-radius:10px; margin-bottom:10px;">
+                        <h2 style="color:#2c3e50;">Section 1: Confusion Matrix</h2>
                         <p style="color:#34495e; font-size:16px;">
-                            This model demonstrates the performance of a RandomForest Classifier. Below are the key results:
+                            The confusion matrix provides a detailed breakdown of the model's performance for each class:
                         </p>
                         <ul style="color:#34495e; font-size:16px;">
-                            <li>F1-Score: <b>0.924</b></li>
-                            <li>Optimal Parameters: <b>max_depth = 5</b>, <b>n_estimators = 100</b></li>
-                            <li>Accuracy: <b>90.15%</b></li>
+                            <li><b>Precision:</b> Proportion of correctly predicted positive observations to the total predicted positives.</li>
+                            <li><b>Recall:</b> Proportion of correctly predicted positive observations to all observations in the actual class.</li>
+                            <li><b>F1-Score:</b> Harmonic mean of precision and recall, balancing both metrics.</li>
+                            <li><b>Support:</b> Actual number of occurrences of each class in the dataset.</li>
+                        </ul>
+                        <p style="color:#34495e; font-size:16px;">
+                            Additional metrics:
+                        </p>
+                        <ul style="color:#34495e; font-size:16px;">
+                            <li><b>Accuracy:</b> Overall percentage of correctly predicted observations.</li>
+                            <li><b>Macro Average:</b> Average performance across all classes, treating each class equally.</li>
+                            <li><b>Weighted Average:</b> Average performance weighted by the support of each class.</li>
+                        </ul>
+                    </div>
+                
+                    <div style="background-color:#e8f4f8; padding:15px; border-radius:10px; margin-bottom:10px;">
+                        <h2 style="color:#2c3e50;">Section 2: F1-Score</h2>
+                        <p style="color:#34495e; font-size:16px;">
+                            The overall F1-score for the model is <b>0.924</b>, indicating a strong balance between precision and recall.
+                        </p>
+                    </div>
+                
+                    <div style="background-color:#f8f9fa; padding:15px; border-radius:10px; margin-bottom:10px;">
+                        <h2 style="color:#2c3e50;">Section 3: Best Model Parameters</h2>
+                        <p style="color:#34495e; font-size:16px;">
+                            Using <b>GridSearchCV</b>, the optimal hyperparameters for the RandomForest Classifier were identified as:
+                        </p>
+                        <ul style="color:#34495e; font-size:16px;">
+                            <li><b>max_depth:</b> 5</li>
+                            <li><b>n_estimators:</b> 100</li>
                         </ul>
                     </div>
                     """,
