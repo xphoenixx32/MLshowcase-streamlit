@@ -24,7 +24,7 @@ from streamlit_option_menu import option_menu
 
 st.title("a Demo of ML Model & XAI")
 st.caption("*using **Machine Learning** method to modeling seaborn dataset, leveraging **SHAP value** to explain the explanatory power of independent variables*")
-st.logo("assets/star.png")
+st.logo("assets/sprout.png")
 
 sns.set_theme(style = "whitegrid")
 #------------------------------------------------------------------------------------------------------#
@@ -88,9 +88,9 @@ if selected_dataset != 'None':
 else:
     df = None
 #------------------------------------------------------------------------------------------------------#
-col1, col2 = st.columns([1, 2])
+col1, col2 = st.columns([1, 4])
 with col1:
-    st.logo("assets/button.png")
+    st.image("assets/button.png")
 with col2:
     st.subheader("Switch Tab")
 
