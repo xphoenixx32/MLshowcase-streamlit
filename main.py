@@ -517,6 +517,7 @@ if df is not None:
             with tab30:
                 st.caption("*Regression Showcase*")
                 st.write("### *LightGBM Regressor*")
+                st.warning(" 🎖️ Prediction on the Fuel Efficiency of cars `mpg` (*Miles per Gallon*) ")
         
                 y_pred = best_model.predict(X)
                 r2 = r2_score(y, y_pred)
@@ -673,6 +674,8 @@ if df is not None:
             with tab30:
                 st.caption("*Classification Showcase*")
                 st.write("### *RandomForest Classifier*")
+                st.warning(" 🎖️ Prediction on `alived` of Titanic passengers (*is alived or not*) ")
+
         
                 y_pred = best_model.predict(X)
                 report_dict = classification_report(y, y_pred, output_dict = True)
