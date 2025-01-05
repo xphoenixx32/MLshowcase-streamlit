@@ -292,37 +292,42 @@ if df is not None:
             
             # Filter numeric and categorical columns
             numeric_columns = df.select_dtypes(include = ['number']).columns.tolist()
-            categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
-
-            if numeric_columns and categorical_columns:
-                # Allow user to select a categorical column and a numeric column
-                selected_category_column = st.selectbox('Select Categorical Column',
-                                                        categorical_columns,
-                                                        key = 'category_selector_tab4',
-                                                        )
-                selected_numeric_column = st.selectbox('Select Numeric Column',
-                                                       numeric_columns,
-                                                       key = 'numeric_selector_tab4',
-                                                       )
-
-                if selected_category_column and selected_numeric_column:
-                    df = df.dropna(subset = [selected_numeric_column, selected_category_column])
-                    # Displot
-                    st.info(f'Area Distribution of {selected_numeric_column} by {selected_category_column}', icon = "ℹ️")
-                    sns_displot = sns.displot(data = df,
-                                              x = selected_numeric_column,
-                                              hue = selected_category_column,
-                                              kind = "kde",
-                                              height = 6,
-                                              aspect = 1.5, # ratio of width:height = aspect
-                                              multiple = "fill",
-                                              clip = (0, None),
-                                              palette = "ch:rot = -.25, hue = 1, light = .75",
-                                              )
-
-                    st.pyplot(sns_displot.fig)
+            if selected_dataset == "mpg":
+                df['name_brand'] = df['name'].apply(lambda x:x.split(" ")[0])
+                df.drop(columns = ['name'])
+                categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
             else:
-                st.write("Ensure your dataset contains both numeric and categorical columns.", icon = "❗")
+                categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
+
+                if numeric_columns and categorical_columns:
+                    # Allow user to select a categorical column and a numeric column
+                    selected_category_column = st.selectbox('Select Categorical Column',
+                                                            categorical_columns,
+                                                            key = 'category_selector_tab4',
+                                                            )
+                    selected_numeric_column = st.selectbox('Select Numeric Column',
+                                                           numeric_columns,
+                                                           key = 'numeric_selector_tab4',
+                                                           )
+    
+                    if selected_category_column and selected_numeric_column:
+                        df = df.dropna(subset = [selected_numeric_column, selected_category_column])
+                        # Displot
+                        st.info(f'Area Distribution of {selected_numeric_column} by {selected_category_column}', icon = "ℹ️")
+                        sns_displot = sns.displot(data = df,
+                                                  x = selected_numeric_column,
+                                                  hue = selected_category_column,
+                                                  kind = "kde",
+                                                  height = 6,
+                                                  aspect = 1.5, # ratio of width:height = aspect
+                                                  multiple = "fill",
+                                                  clip = (0, None),
+                                                  palette = "ch:rot = -.25, hue = 1, light = .75",
+                                                  )
+    
+                        st.pyplot(sns_displot.fig)
+                else:
+                    st.write("Ensure your dataset contains both numeric and categorical columns.", icon = "❗")
         #------------------------------------------------------------------------------------------------------#
         with tab12:
             st.warning(" Brief Realization on Correlation by Categorical Var Between Numeric Var ", icon = "🕹️")
@@ -490,7 +495,7 @@ if df is not None:
         # MPG (Regression)
         # -------------------------------------------
         if selected_dataset == "mpg":
-            # ---------- (1) 從 assets/ 載入離線產生的檔案 -------------
+            # ---------- (1) Import models & parameters -------------
             with open("assets/mpg_best_model.pkl", "rb") as f:
                 best_model = pickle.load(f)
         
@@ -502,13 +507,13 @@ if df is not None:
             with open("assets/mpg_best_params.pkl", "rb") as f:
                 best_params = pickle.load(f)
         
-            # ---------- (2) 讀原始資料 + 前處理（需一致） ----------
+            # ---------- (2) Loading Data & Pre-processing ----------
             df = sns.load_dataset('mpg')
-            X = df.drop(columns=["mpg", "name"])
+            X = df.drop(columns = ["mpg", "name"])
             X = pd.get_dummies(X, drop_first=True)
             y = df["mpg"]
             
-            # ---------- (3) 可視化 / 分析 ----------
+            # ---------- (3) Visualization ----------
             with tab30:
                 st.caption("*Regression Showcase*")
                 st.write("### *LightGBM Regressor*")
@@ -597,7 +602,7 @@ if df is not None:
                     PartialDependenceDisplay.from_estimator(
                         estimator=best_model,
                         X=X,
-                        features=[(feature_1, feature_2)],
+                        features = [(feature_1, feature_2)],
                         kind="average",
                         ax=ax_pdp
                     )
@@ -629,7 +634,7 @@ if df is not None:
         # Titanic (Classification)
         # -------------------------------------------
         elif selected_dataset == "titanic":
-            # ---------- (1) 從 assets/ 載入離線產生的檔案 -------------
+            # ---------- (1) Import models & parameters -------------
             with open("assets/titanic_best_model.pkl", "rb") as f:
                 best_model = pickle.load(f)
         
@@ -641,12 +646,12 @@ if df is not None:
             with open("assets/titanic_best_params.pkl", "rb") as f:
                 best_params = pickle.load(f)
         
-            # ---------- (2) 重新讀原始資料 + 前處理 ----------
+            # ---------- (2) Loading Data & Pre-processing ----------
             df = sns.load_dataset('titanic')
             
             valid_values = ["yes", "no"]
             df = df[df["alive"].isin(valid_values)]
-            df = df.dropna(subset=["alive"])
+            df = df.dropna(subset = ["alive"])
             df['alive'] = df['alive'].map({'yes': 1, 'no': 0})
 
             df['age'] = df['age'].fillna(df['age'].median())
@@ -664,7 +669,7 @@ if df is not None:
             
             X = pd.get_dummies(X, drop_first = True)
         
-            # ---------- (3) 做可視化 ----------
+            # ---------- (3) Visualization ----------
             with tab30:
                 st.caption("*Classification Showcase*")
                 st.write("### *RandomForest Classifier*")
@@ -720,7 +725,7 @@ if df is not None:
                 # st.info("ℹ️ *age* plays an essential role in survival prediction, and higher ticket prices (*fare*) correlate with better survival odds.")
 
                 fig_summary, ax_summary = plt.subplots()
-                # 二元分類下，shap_values.shape = (2, n_samples, n_features)
+                # with Two-classification: shap_values.shape = (n_samples, n_features, 2)
                 shap.summary_plot(shap_values[:, :, 1], X, show = False)
                 st.pyplot(fig_summary)
 
@@ -758,7 +763,7 @@ if df is not None:
                     PartialDependenceDisplay.from_estimator(
                         estimator=best_model,
                         X=X,
-                        features=[(feature_1, feature_2)],
+                        features = [(feature_1, feature_2)],
                         kind="average",
                         target=1,  
                         ax=ax_pdp
