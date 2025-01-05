@@ -10,36 +10,35 @@ from sklearn.ensemble import RandomForestClassifier
 
 df = sns.load_dataset('titanic')
 
-# 1) 前處理
+# 0) 前處理
 valid_values = ["yes", "no"]
 df = df[df["alive"].isin(valid_values)]
 df = df.dropna(subset=["alive"])
+df['alive'] = df['alive'].map({'yes': 1, 'no': 0})
 
 df['age'] = df['age'].fillna(df['age'].median())
 df['embarked'] = df['embarked'].fillna(df['embarked'].mode()[0])
 df['embark_town'] = df['embark_town'].fillna('Unknown')
-
-df['alive'] = df['alive'].map({'yes': 1, 'no': 0})
-# df['sex'] = df['sex'].map({'male': 0, 'female': 1})
-
-columns_to_drop = ['adult_male', 'survived']
-df.drop(columns=[col for col in columns_to_drop if col in df.columns], inplace=True)
-
 df['family_size'] = df['sibsp'] + df['parch'] + 1
-df = df.dropna(axis=0, how="any")
+df = df.drop(columns = ['deck'])
 
+columns_to_drop = ['adult_male', 'who', 'survived', 'deck', 'embarked', 'pclass', 'alone', 'deck']
+df.drop(columns = [col for col in columns_to_drop if col in df.columns], inplace = True)
+df.dropna(axis = 0, how = "any")
+
+# 1) Feature 選取
 y = df["alive"]
-X = df.drop(columns=["alive", "class", "sex"])
+X = df.drop(columns = ["alive"])
 
-X = pd.get_dummies(X, drop_first=True)
+X = pd.get_dummies(X, drop_first = True)
 
 # 2) 建立模型 + GridSearch
-model = RandomForestClassifier(random_state=42)
+model = RandomForestClassifier(random_state = 42)
 param_grid = {
-    'n_estimators': [50, 100],
-    'max_depth': [3, 5, 10]
+    'n_estimators': [50, 100, 200],
+    'max_depth': [5, 7, 10, 12]
 }
-grid_search = GridSearchCV(model, param_grid, cv=5, n_jobs=-1)
+grid_search = GridSearchCV(model, param_grid, cv = 5, n_jobs = -1)
 grid_search.fit(X, y)
 
 best_model = grid_search.best_estimator_
