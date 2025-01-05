@@ -23,7 +23,7 @@ from streamlit_option_menu import option_menu
 #------------------------------------------------------------------------------------------------------#
 
 st.title("a Demo of ML Model & XAI")
-st.subheader("*using **Machine Learning** method to modeling seaborn dataset, leveraging **SHAP value** to explain the explanatory power of independent variables*")
+st.caption("*using **Machine Learning** method to modeling seaborn dataset, leveraging **SHAP value** to explain the explanatory power of independent variables*")
 sns.set_theme(style = "whitegrid")
 #------------------------------------------------------------------------------------------------------#
 
@@ -75,7 +75,7 @@ with st.sidebar:
     st.title("👾 Choose a Dataset")
   
     selected_dataset = st.selectbox(
-        'Select a Seaborn Dataset',
+        ' ⤵️ ',
         ['None'] + dataset_options  # Add 'None' for default empty selection
     )
     #------------------------------------------------------------------------------------------------------#
