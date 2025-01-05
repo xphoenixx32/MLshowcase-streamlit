@@ -1,53 +1,32 @@
+# <i class="robot"></i> Machine Learning & XAI Demo App
 
-# Machine Learning & XAI Demo Application
+## 🎮 Overview
 
-## Overview
-
-This application demonstrates the integration of **Machine Learning** techniques and **Explainable AI (XAI)** methods using Streamlit. It utilizes Seaborn datasets (`mpg` and `titanic`) as examples for regression and classification tasks. Key functionalities include dataset exploration, statistical analysis, feature importance visualization, and partial dependence plots.
+- This [Demo application](https://ml-xai-showcase-toolkit.streamlit.app/) demonstrates the integration of **Machine Learning** techniques and **Explainable AI (XAI)** methods using Streamlit.
+- It utilizes Seaborn datasets (`mpg` and `titanic`) as examples for regression and classification tasks.
+- Key functionalities include *dataset exploration*, *statistical analysis*, *model summary*, *feature importance visualization*, and *partial dependence plots*.
 
 ---
 
-## Features
+## 📎 Features
 
-- **Dataset Selection**: Choose between preloaded datasets (`mpg` and `titanic`) or upload your custom dataset.
-- **Dataset Summary**: View column descriptions, data types, and statistics.
-- **Exploratory Data Analysis (EDA)**: Perform ANOVA, correlation analysis, and visualize data distributions.
-- **Machine Learning Models**:
-  - Regression with `LGBMRegressor` on the `mpg` dataset.
-  - Classification with `RandomForestClassifier` on the `titanic` dataset.
-- **Explainable AI**:
+- **Dataset Selection**
+  - Choose between preloaded datasets (`mpg` and `titanic`) or upload your custom dataset.
+- **Dataset Summary**
+  - View column descriptions, data types, and statistics.
+- **Exploratory Data Analysis (EDA)**:
+  - Perform ANOVA, correlation analysis(including VIF), and visualize data distributions.
+- **Machine Learning Models**
+  - Regression case with `LGBMRegressor` on the `mpg` dataset.
+  - Classification case with `RandomForestClassifier` on the `titanic` dataset.
+- **Explainable AI**(XAI)
   - SHAP summary plots for feature importance.
   - Partial dependence plots for interaction effects.
   - SHAP waterfall plots for individual predictions.
 
 ---
 
-## How to Run
-
-1. Clone this repository:
-
-    ```bash
-    git clone https://github.com/your-repo/ml-xai-demo.git
-    cd ml-xai-demo
-    ```
-
-2. Install the required dependencies:
-
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-3. Start the Streamlit application:
-
-    ```bash
-    streamlit run app.py
-    ```
-
-4. Open the app in your browser at `http://localhost:8501`.
-
----
-
-## File Structure
+## 📂 File Structure
 
 ```plaintext
 ml-xai-demo/
@@ -59,7 +38,7 @@ ml-xai-demo/
 
 ---
 
-## Dependencies
+## ⚡ Dependencies
 
 This application uses the following Python libraries:
 
@@ -72,7 +51,7 @@ Install all dependencies via `requirements.txt`.
 
 ---
 
-## Screenshots
+## 📷 Screenshots
 
 ### Home Page
 ![Home Page](assets/home_page.png)
@@ -80,22 +59,26 @@ Install all dependencies via `requirements.txt`.
 ### SHAP Summary Plot
 ![SHAP Summary Plot](assets/shap_summary.png)
 
----
-
-## License
-
-This project is licensed under the MIT License. See the `LICENSE` file for details.
+### SHAP WaterFall Plot
+![SHAP WaterFall Plot](assets/shap_waterfall.png)
 
 ---
 
-## Contributing
+## 📃 Contributing
 
-Contributions are welcome! Feel free to submit a pull request or open an issue.
+Feel free to open issues or submit pull requests for improvements. Contributions are welcome!
 
 ---
 
-## Author
+## 🧰 License
 
-**Jean**  
-Machine Learning Engineer  
-[LinkedIn](https://www.linkedin.com/in/your-profile/) | [GitHub](https://github.com/your-profile/)
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
+
+### 👾 Author
+Developed with ❤️ by [Lean Lin]. 
+
+For any queries or suggestions, please contact:
+- [Gmail](mailto:xphoenixx32@gmail.com)
+- [LinkedIn](https://www.linkedin.com/in/leanlin/)
