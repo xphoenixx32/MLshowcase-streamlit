@@ -1,6 +1,6 @@
-# <i class="robot"></i> Machine Learning & XAI Demo App
+# 🕹️ Machine Learning & XAI Demo App
 
-## 🎮 Overview
+## 👁️‍🗨️ Overview
 
 - This [Demo application](https://ml-xai-showcase-toolkit.streamlit.app/) demonstrates the integration of **Machine Learning** techniques and **Explainable AI (XAI)** methods using Streamlit.
 - It utilizes Seaborn datasets (`mpg` and `titanic`) as examples for regression and classification tasks.
