@@ -76,7 +76,6 @@ dataset_columns = {
 with st.sidebar:
     st.title("👾 *Choose a Dataset*")
     selected_dataset = st.selectbox(
-        '     🔻 ',
         ['None'] + dataset_options  # Add 'None' for default empty selection
     )
     #------------------------------------------------------------------------------------------------------#
