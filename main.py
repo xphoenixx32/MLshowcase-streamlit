@@ -392,7 +392,7 @@ if df is not None:
             
             if numeric_columns:
                 # Put Numeric Var into Multi-Select
-                selected_columns = st.multiselect("Select numeric columns for VIF & Corr Matrix:",
+                selected_columns = st.multiselect("Select numeric columns:",
                                                   numeric_columns,
                                                   default = numeric_columns,  # default settings for select all numeric
                                                   )
@@ -690,7 +690,7 @@ if df is not None:
                 st.write("2️⃣", f"**F1-score**: *{f1:.3f}*")
                 st.markdown(
                     """
-                    The overall F1-score for the model is 0.924, indicating strong balance between precision and recall.
+                    The overall F1-score for the model is 0.916, indicating strong balance between precision and recall.
                     """)
 
                 st.divider()
