@@ -24,7 +24,7 @@ from streamlit_option_menu import option_menu
 
 st.title("a Demo of ML Model & XAI")
 st.caption("*using **Machine Learning** method to modeling seaborn dataset, leveraging **SHAP value** to explain the explanatory power of independent variables*")
-st.logo("assets/sprout.png")
+st.logo("assets/button.png")
 
 sns.set_theme(style = "whitegrid")
 #------------------------------------------------------------------------------------------------------#
@@ -76,7 +76,7 @@ dataset_columns = {
 with st.sidebar:
     st.title("👾 *Choose a Dataset*")
     selected_dataset = st.selectbox(
-        ' ⤵️ ',
+        '     🔻 ',
         ['None'] + dataset_options  # Add 'None' for default empty selection
     )
     #------------------------------------------------------------------------------------------------------#
@@ -88,11 +88,7 @@ if selected_dataset != 'None':
 else:
     df = None
 #------------------------------------------------------------------------------------------------------#
-col1, col2 = st.columns([1, 4])
-with col1:
-    st.image("assets/button.png", width = 100)
-with col2:
-    st.subheader("Switch Tab")
+st.subheader("🕹️  *Switch Tab* ")
 
 # Option Menu
 with st.container():
