@@ -135,7 +135,7 @@ if df is not None:
             st.divider()
         
             # Only describe numeric columns
-            st.info('Statistic of Numeric Variables', icon = "3️⃣")
+            st.info('Statistic of `Numeric` Variables', icon = "3️⃣")
             numeric_df = df.select_dtypes(include = ['number'])
             if not numeric_df.empty:
                 st.write(numeric_df.describe([.25, .75, .9, .95]))
@@ -193,18 +193,18 @@ if df is not None:
             # Filter numeric and categorical columns
             numeric_columns = df.select_dtypes(include = ['number']).columns.tolist()
             if selected_dataset == "mpg":
-                st.error(" 🚫 Avoid using 'name' in case of `over-loading` ")
+                st.error(" 🚫  Avoid using 'name' in case of `over-loading` ")
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
             else:
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
             
             if numeric_columns and categorical_columns:
                 # Allow user to select a categorical column and a numeric column
-                selected_category_column = st.selectbox('Select Categorical Column',
+                selected_category_column = st.selectbox('Select `Categorical` Column',
                                                         categorical_columns,
                                                         key = 'category_selector_tab3',
                                                        )
-                selected_numeric_column = st.selectbox('Select Numeric Column',
+                selected_numeric_column = st.selectbox('Select `Numeric` Column',
                                                        numeric_columns,
                                                        key = 'numeric_selector_tab3',
                                                       )
@@ -244,7 +244,7 @@ if df is not None:
                     if anova_result.pvalue < 0.05:
                         st.success("✅ The differences between groups are statistically significant (p < 0.05).")
                     else:
-                        st.warning("⛔ The differences between groups are NOT statistically significant (p >= 0.05).")
+                        st.warning("⛔ The differences between groups are `NOT` statistically significant (p >= 0.05).")
                     
                     st.divider()
                     
@@ -297,18 +297,18 @@ if df is not None:
             # Filter numeric and categorical columns
             numeric_columns = df.select_dtypes(include = ['number']).columns.tolist()
             if selected_dataset == "mpg":
-                st.error(" 🚫 Avoid using 'name' in case of `over-loading` ")
+                st.error(" 🚫  Avoid using 'name' in case of `over-loading` ")
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
             else:
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
 
             if numeric_columns and categorical_columns:
                 # Allow user to select a categorical column and a numeric column
-                selected_category_column = st.selectbox('Select Categorical Column',
+                selected_category_column = st.selectbox('Select `Categorical` Column',
                                                         categorical_columns,
                                                         key = 'category_selector_tab4',
                                                         )
-                selected_numeric_column = st.selectbox('Select Numeric Column',
+                selected_numeric_column = st.selectbox('Select `Numeric` Column',
                                                        numeric_columns,
                                                        key = 'numeric_selector_tab4',
                                                        )
@@ -330,7 +330,7 @@ if df is not None:
 
                     st.pyplot(sns_displot.fig)
             else:
-                st.write("Ensure your dataset contains both numeric and categorical columns.", icon = "❗")
+                st.write("Ensure your dataset contains both `Numeric` and `Categorical` columns.", icon = "❗")
         #------------------------------------------------------------------------------------------------------#
         with tab12:
             st.warning(" Brief Realization on Correlation by Categorical Var Between Numeric Var ", icon = "🕹️")
@@ -340,14 +340,14 @@ if df is not None:
 
             # Filter categorical columns
             if selected_dataset == "mpg":
-                st.error(" 🚫 Avoid using 'name' in case of `over-loading` ")
+                st.error(" 🚫  Avoid using 'name' in case of `over-loading` ")
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
             else:
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
 
             if numeric_columns and categorical_columns:
                 # Allow user to select a categorical column
-                selected_category_column = st.selectbox('Select Categorical Column',
+                selected_category_column = st.selectbox('Select `Categorical` Column',
                                                         categorical_columns,
                                                         key = 'category_selector_tab5',
                                                         )
@@ -355,11 +355,11 @@ if df is not None:
 
                 # Allow user to select numeric columns for X and Y axes
                 st.info(" X & Y Should be Different ", icon = "ℹ️")
-                selected_x = st.selectbox('Select X-axis column',
+                selected_x = st.selectbox('Select *X-axis* column',
                                           numeric_columns,
                                           key = 'x_axis_selector_tab5',
                                           )
-                selected_y = st.selectbox('Select Y-axis column',
+                selected_y = st.selectbox('Select *Y-axis* column',
                                           numeric_columns,
                                           key = 'y_axis_selector_tab5',
                                           )
@@ -407,7 +407,7 @@ if df is not None:
             
             if numeric_columns:
                 # Put Numeric Var into Multi-Select
-                selected_columns = st.multiselect("Select numeric columns:",
+                selected_columns = st.multiselect("Select `Numeric` columns:",
                                                   numeric_columns,
                                                   default = numeric_columns,  # default settings for select all numeric
                                                   )
@@ -424,7 +424,7 @@ if df is not None:
                     vif_data["feature"] = X.columns
                     vif_data["VIF"] = [variance_inflation_factor(X.values, i) for i in range(X.shape[1])]
                     
-                    st.info('Use Variance Inflation Factors(VIF) to check Multi-collinearity', icon = "ℹ️")
+                    st.info(' Use Variance Inflation Factors(`VIF`) to check `Multi-collinearity` ', icon = "ℹ️")
                     st.write(vif_data)
                     st.markdown('''
                                 - VIF = 1: No multicollinearity.
@@ -450,7 +450,7 @@ if df is not None:
                                 )
                     ax.set_title("Correlation Matrix Heatmap (Lower Triangle Only)")
                     
-                    st.info('Use Correlation Matrix Heatmap for further checking', icon = "ℹ️")
+                    st.info(' Use `Correlation Matrix Heatmap` for further checking ', icon = "ℹ️")
                     st.pyplot(fig)
                 else:
                     st.warning("No columns selected. Please select at least one numeric column.", icon = "⚠️")
@@ -463,7 +463,7 @@ if df is not None:
             # Filter numeric and categorical columns
             numeric_columns = df.select_dtypes(include = ['number']).columns.tolist()
             if selected_dataset == "mpg":
-                st.error(" 🚫 Avoid using 'name' in case of `over-loading` ")
+                st.error(" 🚫  Avoid using 'name' in case of `over-loading` ")
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
             else:
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
