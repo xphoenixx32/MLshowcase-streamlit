@@ -194,7 +194,7 @@ if df is not None:
             numeric_columns = df.select_dtypes(include = ['number']).columns.tolist()
             if selected_dataset == "mpg":
                 df['name_brand'] = df['name'].apply(lambda x:x.split(" ")[0])
-                df.drop(columns = ['name'])
+                df = df.drop(columns = ['name'])
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
             else:
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
@@ -299,7 +299,7 @@ if df is not None:
             numeric_columns = df.select_dtypes(include = ['number']).columns.tolist()
             if selected_dataset == "mpg":
                 df['name_brand'] = df['name'].apply(lambda x:x.split(" ")[0])
-                df.drop(columns = ['name'])
+                df = df.drop(columns = ['name'])
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
             else:
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
@@ -343,7 +343,7 @@ if df is not None:
             # Filter categorical columns
             if selected_dataset == "mpg":
                 df['name_brand'] = df['name'].apply(lambda x:x.split(" ")[0])
-                df.drop(columns = ['name'])
+                df = df.drop(columns = ['name'])
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
             else:
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
@@ -467,7 +467,7 @@ if df is not None:
             numeric_columns = df.select_dtypes(include = ['number']).columns.tolist()
             if selected_dataset == "mpg":
                 df['name_brand'] = df['name'].apply(lambda x:x.split(" ")[0])
-                df.drop(columns = ['name'])
+                df = df.drop(columns = ['name'])
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
             else:
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
