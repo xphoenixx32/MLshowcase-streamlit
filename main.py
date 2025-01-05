@@ -199,98 +199,98 @@ if df is not None:
             else:
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
             
-                if numeric_columns and categorical_columns:
-                    # Allow user to select a categorical column and a numeric column
-                    selected_category_column = st.selectbox('Select Categorical Column',
-                                                            categorical_columns,
-                                                            key = 'category_selector_tab3',
-                                                           )
-                    selected_numeric_column = st.selectbox('Select Numeric Column',
-                                                           numeric_columns,
-                                                           key = 'numeric_selector_tab3',
-                                                          )
-    
-                    st.divider()
-    
-                    if selected_category_column and selected_numeric_column:
-                        # #0 Check the Anova Test
-                        # Remove rows with missing values in the selected columns
-                        df = df.dropna(subset = [selected_numeric_column, selected_category_column])
-    
-                        # Ensure the data columns are of the correct type
-                        df[selected_numeric_column] = pd.to_numeric(df[selected_numeric_column], errors = 'coerce')
-                        df[selected_category_column] = df[selected_category_column].astype(str)
-    
-                        # Retrieve unique category values and group data by categories
-                        unique_category_values = df[selected_category_column].unique().tolist()
-                        category_groups = [df[df[selected_category_column] == category][selected_numeric_column] for category in unique_category_values]
-    
-                        # Check if each group has sufficient data
-                        for i, group in enumerate(category_groups):
-                            if len(group) < 2:
-                                st.error(f"⛔ Group '{unique_category_values[i]}' does not have enough data for ANOVA analysis!")
-                                st.stop()
-                            if group.var() == 0:
-                                st.error(f"⛔ Group '{unique_category_values[i]}' has constant values, making ANOVA analysis impossible!")
-                                st.stop()
-    
-                        # Perform ANOVA
-                        anova_result = f_oneway(*category_groups)
-    
-                        # Output the results
-                        st.info(f'One-way ANOVA between {selected_category_column} on {selected_numeric_column}', icon = "ℹ️")
-                        st.write(f"ANOVA F-statistic: {anova_result.statistic:.3f}")
-                        st.write(f"ANOVA p-value: {anova_result.pvalue:.3f}")
-    
-                        if anova_result.pvalue < 0.05:
-                            st.success("✅ The differences between groups are statistically significant (p < 0.05).")
-                        else:
-                            st.warning("⛔ The differences between groups are NOT statistically significant (p >= 0.05).")
-                        
-                        st.divider()
-                        
-                        # Violin plot
-                        st.info(f'Violin plot of {selected_numeric_column} by {selected_category_column}', icon = "ℹ️")
-                        fig, ax = plt.subplots(figsize = (12, 6))
-                        sns.violinplot(
-                            data = df,
-                            x = selected_category_column,
-                            y = selected_numeric_column,
-                            palette = "muted",
-                            ax = ax,
-                        )
-                        ax.set_xlabel(selected_category_column)
-                        ax.set_ylabel(selected_numeric_column)
-                        
-                        st.pyplot(fig)
-    
-                        st.divider()
-                        
-                        # Calculate Statistics
-                        st.info(f'Statistics of {selected_numeric_column} by {selected_category_column}', icon = "ℹ️")
-                        grouped_stats = df.groupby(selected_category_column)[selected_numeric_column].agg(count = 'count',
-                                                                                                          mean = 'mean',
-                                                                                                          std = 'std',
-                                                                                                          q1 = lambda x: x.quantile(0.25),
-                                                                                                          median = 'median',
-                                                                                                          q3 = lambda x: x.quantile(0.75),
-                                                                                                          ).reset_index()
-    
-                        grouped_stats[['mean', 'std', 'q1', 'median', 'q3']] = grouped_stats[['mean', 'std', 'q1', 'median', 'q3']].round(3)
+            if numeric_columns and categorical_columns:
+                # Allow user to select a categorical column and a numeric column
+                selected_category_column = st.selectbox('Select Categorical Column',
+                                                        categorical_columns,
+                                                        key = 'category_selector_tab3',
+                                                       )
+                selected_numeric_column = st.selectbox('Select Numeric Column',
+                                                       numeric_columns,
+                                                       key = 'numeric_selector_tab3',
+                                                      )
+
+                st.divider()
+
+                if selected_category_column and selected_numeric_column:
+                    # #0 Check the Anova Test
+                    # Remove rows with missing values in the selected columns
+                    df = df.dropna(subset = [selected_numeric_column, selected_category_column])
+
+                    # Ensure the data columns are of the correct type
+                    df[selected_numeric_column] = pd.to_numeric(df[selected_numeric_column], errors = 'coerce')
+                    df[selected_category_column] = df[selected_category_column].astype(str)
+
+                    # Retrieve unique category values and group data by categories
+                    unique_category_values = df[selected_category_column].unique().tolist()
+                    category_groups = [df[df[selected_category_column] == category][selected_numeric_column] for category in unique_category_values]
+
+                    # Check if each group has sufficient data
+                    for i, group in enumerate(category_groups):
+                        if len(group) < 2:
+                            st.error(f"⛔ Group '{unique_category_values[i]}' does not have enough data for ANOVA analysis!")
+                            st.stop()
+                        if group.var() == 0:
+                            st.error(f"⛔ Group '{unique_category_values[i]}' has constant values, making ANOVA analysis impossible!")
+                            st.stop()
+
+                    # Perform ANOVA
+                    anova_result = f_oneway(*category_groups)
+
+                    # Output the results
+                    st.info(f'One-way ANOVA between {selected_category_column} on {selected_numeric_column}', icon = "ℹ️")
+                    st.write(f"ANOVA F-statistic: {anova_result.statistic:.3f}")
+                    st.write(f"ANOVA p-value: {anova_result.pvalue:.3f}")
+
+                    if anova_result.pvalue < 0.05:
+                        st.success("✅ The differences between groups are statistically significant (p < 0.05).")
+                    else:
+                        st.warning("⛔ The differences between groups are NOT statistically significant (p >= 0.05).")
                     
-                        # Rename Columns of Statistics
-                        grouped_stats.rename(columns = {'count': 'Count',
-                                                        'mean': 'Mean',
-                                                        'std': 'STD',
-                                                        'q1': 'Q1','median': 'Q2',
-                                                        'q3': 'Q3',
-                                                        },
-                                             inplace = True,
-                                             )
-                        grouped_stats.set_index(selected_category_column, inplace = True)
-                        st.write(grouped_stats.T)
-                else:
-                    st.write("Ensure your dataset contains both numeric and categorical columns.", icon = "❗")
+                    st.divider()
+                    
+                    # Violin plot
+                    st.info(f'Violin plot of {selected_numeric_column} by {selected_category_column}', icon = "ℹ️")
+                    fig, ax = plt.subplots(figsize = (12, 6))
+                    sns.violinplot(
+                        data = df,
+                        x = selected_category_column,
+                        y = selected_numeric_column,
+                        palette = "muted",
+                        ax = ax,
+                    )
+                    ax.set_xlabel(selected_category_column)
+                    ax.set_ylabel(selected_numeric_column)
+                    
+                    st.pyplot(fig)
+
+                    st.divider()
+                    
+                    # Calculate Statistics
+                    st.info(f'Statistics of {selected_numeric_column} by {selected_category_column}', icon = "ℹ️")
+                    grouped_stats = df.groupby(selected_category_column)[selected_numeric_column].agg(count = 'count',
+                                                                                                      mean = 'mean',
+                                                                                                      std = 'std',
+                                                                                                      q1 = lambda x: x.quantile(0.25),
+                                                                                                      median = 'median',
+                                                                                                      q3 = lambda x: x.quantile(0.75),
+                                                                                                      ).reset_index()
+
+                    grouped_stats[['mean', 'std', 'q1', 'median', 'q3']] = grouped_stats[['mean', 'std', 'q1', 'median', 'q3']].round(3)
+                
+                    # Rename Columns of Statistics
+                    grouped_stats.rename(columns = {'count': 'Count',
+                                                    'mean': 'Mean',
+                                                    'std': 'STD',
+                                                    'q1': 'Q1','median': 'Q2',
+                                                    'q3': 'Q3',
+                                                    },
+                                         inplace = True,
+                                         )
+                    grouped_stats.set_index(selected_category_column, inplace = True)
+                    st.write(grouped_stats.T)
+            else:
+                st.write("Ensure your dataset contains both numeric and categorical columns.", icon = "❗")
         #------------------------------------------------------------------------------------------------------#
         with tab11:
             st.warning(" Realize the Concentration of Data points ", icon = "🕹️")
@@ -304,35 +304,35 @@ if df is not None:
             else:
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
 
-                if numeric_columns and categorical_columns:
-                    # Allow user to select a categorical column and a numeric column
-                    selected_category_column = st.selectbox('Select Categorical Column',
-                                                            categorical_columns,
-                                                            key = 'category_selector_tab4',
-                                                            )
-                    selected_numeric_column = st.selectbox('Select Numeric Column',
-                                                           numeric_columns,
-                                                           key = 'numeric_selector_tab4',
-                                                           )
-    
-                    if selected_category_column and selected_numeric_column:
-                        df = df.dropna(subset = [selected_numeric_column, selected_category_column])
-                        # Displot
-                        st.info(f'Area Distribution of {selected_numeric_column} by {selected_category_column}', icon = "ℹ️")
-                        sns_displot = sns.displot(data = df,
-                                                  x = selected_numeric_column,
-                                                  hue = selected_category_column,
-                                                  kind = "kde",
-                                                  height = 6,
-                                                  aspect = 1.5, # ratio of width:height = aspect
-                                                  multiple = "fill",
-                                                  clip = (0, None),
-                                                  palette = "ch:rot = -.25, hue = 1, light = .75",
-                                                  )
-    
-                        st.pyplot(sns_displot.fig)
-                else:
-                    st.write("Ensure your dataset contains both numeric and categorical columns.", icon = "❗")
+            if numeric_columns and categorical_columns:
+                # Allow user to select a categorical column and a numeric column
+                selected_category_column = st.selectbox('Select Categorical Column',
+                                                        categorical_columns,
+                                                        key = 'category_selector_tab4',
+                                                        )
+                selected_numeric_column = st.selectbox('Select Numeric Column',
+                                                       numeric_columns,
+                                                       key = 'numeric_selector_tab4',
+                                                       )
+
+                if selected_category_column and selected_numeric_column:
+                    df = df.dropna(subset = [selected_numeric_column, selected_category_column])
+                    # Displot
+                    st.info(f'Area Distribution of {selected_numeric_column} by {selected_category_column}', icon = "ℹ️")
+                    sns_displot = sns.displot(data = df,
+                                              x = selected_numeric_column,
+                                              hue = selected_category_column,
+                                              kind = "kde",
+                                              height = 6,
+                                              aspect = 1.5, # ratio of width:height = aspect
+                                              multiple = "fill",
+                                              clip = (0, None),
+                                              palette = "ch:rot = -.25, hue = 1, light = .75",
+                                              )
+
+                    st.pyplot(sns_displot.fig)
+            else:
+                st.write("Ensure your dataset contains both numeric and categorical columns.", icon = "❗")
         #------------------------------------------------------------------------------------------------------#
         with tab12:
             st.warning(" Brief Realization on Correlation by Categorical Var Between Numeric Var ", icon = "🕹️")
@@ -348,59 +348,59 @@ if df is not None:
             else:
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
 
-                if numeric_columns and categorical_columns:
-                    # Allow user to select a categorical column
-                    selected_category_column = st.selectbox('Select Categorical Column',
-                                                            categorical_columns,
-                                                            key = 'category_selector_tab5',
-                                                            )
-                    unique_category_values = df[selected_category_column].unique().tolist()
-    
-                    # Allow user to select numeric columns for X and Y axes
-                    st.info(" X & Y Should be Different ", icon = "ℹ️")
-                    selected_x = st.selectbox('Select X-axis column',
-                                              numeric_columns,
-                                              key = 'x_axis_selector_tab5',
-                                              )
-                    selected_y = st.selectbox('Select Y-axis column',
-                                              numeric_columns,
-                                              key = 'y_axis_selector_tab5',
-                                              )
-                    if selected_x and selected_y:
-                        # Create subplots based on the number of unique category values
-                        num_categories = len(unique_category_values)
-                        cols = 2  # Maximum 2 plots per row
-                        rows = (num_categories + cols - 1) // cols  # Calculate rows needed
-    
-                        # Initialize the figure
-                        fig, axes = plt.subplots(
-                        rows, cols,
-                        figsize = (12, 6 * rows),
-                        constrained_layout = True,
-                        )
-                        axes = axes.flatten()  # Flatten axes for easy iteration
-    
-                        # Plot each category
-                        for i, category in enumerate(unique_category_values):
-                            ax = axes[i]
-                            filtered_data = df[df[selected_category_column] == category]
-                            sns.kdeplot(data = filtered_data,
-                                        x = selected_x,
-                                        y = selected_y,
-                                        fill = True,
-                                        cmap = "Greens",
-                                        ax = ax,
-                                        warn_singular = False,  # Suppress singular warnings
-                                        )
-                            ax.set_title(f'{selected_category_column}: {category}')
-                            ax.set_xlabel(selected_x)
-                            ax.set_ylabel(selected_y)
-    
-                        # Hide unused subplots
-                        for i in range(num_categories, len(axes)):
-                            axes[i].axis('off')
-                        # Display the plot
-                        st.pyplot(fig)
+            if numeric_columns and categorical_columns:
+                # Allow user to select a categorical column
+                selected_category_column = st.selectbox('Select Categorical Column',
+                                                        categorical_columns,
+                                                        key = 'category_selector_tab5',
+                                                        )
+                unique_category_values = df[selected_category_column].unique().tolist()
+
+                # Allow user to select numeric columns for X and Y axes
+                st.info(" X & Y Should be Different ", icon = "ℹ️")
+                selected_x = st.selectbox('Select X-axis column',
+                                          numeric_columns,
+                                          key = 'x_axis_selector_tab5',
+                                          )
+                selected_y = st.selectbox('Select Y-axis column',
+                                          numeric_columns,
+                                          key = 'y_axis_selector_tab5',
+                                          )
+                if selected_x and selected_y:
+                    # Create subplots based on the number of unique category values
+                    num_categories = len(unique_category_values)
+                    cols = 2  # Maximum 2 plots per row
+                    rows = (num_categories + cols - 1) // cols  # Calculate rows needed
+
+                    # Initialize the figure
+                    fig, axes = plt.subplots(
+                    rows, cols,
+                    figsize = (12, 6 * rows),
+                    constrained_layout = True,
+                    )
+                    axes = axes.flatten()  # Flatten axes for easy iteration
+
+                    # Plot each category
+                    for i, category in enumerate(unique_category_values):
+                        ax = axes[i]
+                        filtered_data = df[df[selected_category_column] == category]
+                        sns.kdeplot(data = filtered_data,
+                                    x = selected_x,
+                                    y = selected_y,
+                                    fill = True,
+                                    cmap = "Greens",
+                                    ax = ax,
+                                    warn_singular = False,  # Suppress singular warnings
+                                    )
+                        ax.set_title(f'{selected_category_column}: {category}')
+                        ax.set_xlabel(selected_x)
+                        ax.set_ylabel(selected_y)
+
+                    # Hide unused subplots
+                    for i in range(num_categories, len(axes)):
+                        axes[i].axis('off')
+                    # Display the plot
+                    st.pyplot(fig)
         #------------------------------------------------------------------------------------------------------#
         with tab13:
             st.warning("Check the Multi-collinearity between Numeric Variables", icon = "🕹️")
@@ -472,33 +472,33 @@ if df is not None:
             else:
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
 
-                if numeric_columns and categorical_columns:
-                    selected_category_column = st.selectbox(
-                    'Select Categorical Column',
-                    categorical_columns,
-                    key = 'category_selector_tab7',
-                    )
-    
-                    if selected_category_column:
-                        st.write(f"Selected Category: {selected_category_column}")
-    
-                        # Check if selected columns exist in df
-                        if selected_category_column not in df.columns:
-                            st.error(f"Column {selected_category_column} not found in dataframe.")
-                        else:
-                            # Generate pairplot
-                            pairplot_fig = sns.pairplot(
-                            df,
-                            hue = selected_category_column,
-                            vars = numeric_columns,
-                            corner = True,
-                            plot_kws = {'alpha': 0.7},
-                            )
-                            
-                            # Display the plot using Streamlit
-                            st.pyplot(pairplot_fig)
-                else:
-                    st.write("Ensure your dataset contains both numeric and categorical columns.", icon = "❗")
+            if numeric_columns and categorical_columns:
+                selected_category_column = st.selectbox(
+                'Select Categorical Column',
+                categorical_columns,
+                key = 'category_selector_tab7',
+                )
+
+                if selected_category_column:
+                    st.write(f"Selected Category: {selected_category_column}")
+
+                    # Check if selected columns exist in df
+                    if selected_category_column not in df.columns:
+                        st.error(f"Column {selected_category_column} not found in dataframe.")
+                    else:
+                        # Generate pairplot
+                        pairplot_fig = sns.pairplot(
+                        df,
+                        hue = selected_category_column,
+                        vars = numeric_columns,
+                        corner = True,
+                        plot_kws = {'alpha': 0.7},
+                        )
+                        
+                        # Display the plot using Streamlit
+                        st.pyplot(pairplot_fig)
+            else:
+                st.write("Ensure your dataset contains both numeric and categorical columns.", icon = "❗")
     #------------------------------------------------------------------------------------------------------#
     if selected == "ML & XAI":
         tab30, tab31, tab32, tab33 = st.tabs(['⌈ ⁰ Model Summary ⌉',
