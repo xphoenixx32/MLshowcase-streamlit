@@ -552,6 +552,9 @@ if df is not None:
             with tab31:
                 st.caption("*Regression Showcase*")
                 st.write("### *SHAP Summary Plot*")
+
+                st.info("ℹ️ This summary plot visualizes SHAP values, showing the impact of each feature on the model's output.")
+                st.success("The combination of position (impact on the SHAP value) and color (feature value) allows you to understand how the magnitude of a feature value influences the prediction.")
         
                 fig_summary, ax_summary = plt.subplots()
                 shap.summary_plot(shap_values, X, show=False)
@@ -602,9 +605,9 @@ if df is not None:
                 st.info("ℹ️ Waterfall plot illustrates how specific features contribute to the final prediction for a single instance in a machine learning model.")
         
                 row_index = st.number_input("Select a Row Index of a Sample ⤵️", 
-                                            min_value=0, 
-                                            max_value=len(X) - 1, 
-                                            step=1)
+                                            min_value = 0, 
+                                            max_value = len(X) - 1, 
+                                            step = 1)
                 if row_index is not None:
                     fig_waterfall, ax_waterfall = plt.subplots()
                     shap.waterfall_plot(
@@ -706,8 +709,11 @@ if df is not None:
                 st.caption("*Classification Showcase*")
                 st.write("### *SHAP Summary Plot*")
 
-                st.success("✅ being a man (*who_man*) may negatively influence survival predictions (negative SHAP values), while being a woman (*who_woman*) has a positive influence.")
-                st.info("ℹ️ *age* plays an essential role in survival prediction, and higher ticket prices (*fare*) correlate with better survival odds.")
+                st.info("ℹ️ This summary plot visualizes SHAP values, showing the impact of each feature on the model's output.")
+                st.success("The combination of position (impact on the SHAP value) and color (feature value) allows you to understand how the magnitude of a feature value influences the prediction.")
+
+                # st.success("✅ being a man (*who_man*) may negatively influence survival predictions (negative SHAP values), while being a woman (*who_woman*) has a positive influence.")
+                # st.info("ℹ️ *age* plays an essential role in survival prediction, and higher ticket prices (*fare*) correlate with better survival odds.")
 
                 fig_summary, ax_summary = plt.subplots()
                 # 二元分類下，shap_values.shape = (2, n_samples, n_features)
