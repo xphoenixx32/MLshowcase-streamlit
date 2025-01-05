@@ -10,6 +10,8 @@ import matplotlib.pyplot as plt
 import shap
 from pdpbox import pdp
 from scipy.stats import f_oneway
+import statsmodels.api as sm
+from statsmodels.stats.outliers_influence import variance_inflation_factor
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import r2_score, classification_report, f1_score, mean_absolute_error
 from sklearn.inspection import PartialDependenceDisplay
@@ -179,7 +181,7 @@ if df is not None:
         tab10, tab11, tab12, tab13, tab14 = st.tabs(['⌈ ⁰ ANOVA & Violin Plot ⌉', 
                                                      '⌈ ¹ Area Plot ⌉', 
                                                      '⌈ ² Density Plot ⌉', 
-                                                     '⌈ ³ Corr Matrix ⌉',
+                                                     '⌈ ³ VIF & Corr Matrix ⌉',
                                                      '⌈ ⁴ Pair Plot ⌉'])
         #------------------------------------------------------------------------------------------------------#
         with tab10:
@@ -383,19 +385,39 @@ if df is not None:
                     st.pyplot(fig)
         #------------------------------------------------------------------------------------------------------#
         with tab13:
-            st.warning("Correlation Matrix between Numeric Variables", icon="🕹️")
+            st.warning("Check the Multi-collinearity between Numeric Variables", icon = "🕹️")
             
             # Filter numeric columns
             numeric_columns = df.select_dtypes(include = ['number']).columns.tolist()
             
             if numeric_columns:
                 # Put Numeric Var into Multi-Select
-                selected_columns = st.multiselect("Select numeric columns for Corr Matrix:",
+                selected_columns = st.multiselect("Select numeric columns for VIF & Corr Matrix:",
                                                   numeric_columns,
                                                   default = numeric_columns,  # default settings for select all numeric
                                                   )
+                st.divider()
                 
                 if selected_columns:
+                    # VIF: Variance Inflation Factors
+                    X = df[selected_columns].dropna()
+
+                    # Add an Intercept
+                    X = sm.add_constant(X)
+                    
+                    vif_data = pd.DataFrame()
+                    vif_data["feature"] = X.columns
+                    vif_data["VIF"] = [variance_inflation_factor(X.values, i) for i in range(X.shape[1])]
+                    
+                    st.info('Use Variance Inflation Factors(VIF) to check Multi-collinearity', icon = "ℹ️")
+                    st.write(vif_data)
+                    st.markdown('''
+                                - VIF = 1: No multicollinearity.
+                                - 1 < VIF < 5: Acceptable range.
+                                - VIF ≥ 5 or 10: Severe multicollinearity; consider removing or combining features.
+                    ''')
+                    st.divider()
+
                     # Compute correlation matrix
                     correlation_matrix = df[selected_columns].corr()
         
@@ -413,6 +435,7 @@ if df is not None:
                                 )
                     ax.set_title("Correlation Matrix Heatmap (Lower Triangle Only)")
                     
+                    st.info('Use Correlation Matrix Heatmap for further checking', icon = "ℹ️")
                     st.pyplot(fig)
                 else:
                     st.warning("No columns selected. Please select at least one numeric column.", icon = "⚠️")
@@ -617,24 +640,22 @@ if df is not None:
             valid_values = ["yes", "no"]
             df = df[df["alive"].isin(valid_values)]
             df = df.dropna(subset=["alive"])
-            
+            df['alive'] = df['alive'].map({'yes': 1, 'no': 0})
+
             df['age'] = df['age'].fillna(df['age'].median())
             df['embarked'] = df['embarked'].fillna(df['embarked'].mode()[0])
             df['embark_town'] = df['embark_town'].fillna('Unknown')
-            
-            df['alive'] = df['alive'].map({'yes': 1, 'no': 0})
-            # df['sex'] = df['sex'].map({'male': 0, 'female': 1})
-            
-            columns_to_drop = ['adult_male', 'survived']
-            df.drop(columns=[col for col in columns_to_drop if col in df.columns], inplace=True)
-            
             df['family_size'] = df['sibsp'] + df['parch'] + 1
-            df = df.dropna(axis=0, how="any")
-        
-            y = df["alive"]
-            X = df.drop(columns=["alive", "class", "sex"])
+            df = df.drop(columns = ['deck'])
+
+            columns_to_drop = ['adult_male', 'who', 'survived', 'deck', 'embarked', 'pclass', 'alone', 'deck']
+            df.drop(columns = [col for col in columns_to_drop if col in df.columns], inplace = True)
+            df.dropna(axis = 0, how = "any")
             
-            X = pd.get_dummies(X, drop_first=True)
+            y = df["alive"]
+            X = df.drop(columns = ["alive"])
+            
+            X = pd.get_dummies(X, drop_first = True)
         
             # ---------- (3) 做可視化 ----------
             with tab30:
@@ -642,7 +663,7 @@ if df is not None:
                 st.write("### *RandomForest Classifier*")
         
                 y_pred = best_model.predict(X)
-                report_dict = classification_report(y, y_pred, output_dict=True)
+                report_dict = classification_report(y, y_pred, output_dict = True)
                 cm = pd.DataFrame(report_dict).transpose()
                 f1 = f1_score(y, y_pred)
         
@@ -690,7 +711,7 @@ if df is not None:
 
                 fig_summary, ax_summary = plt.subplots()
                 # 二元分類下，shap_values.shape = (2, n_samples, n_features)
-                shap.summary_plot(shap_values[:, :, 1], X, show=False)
+                shap.summary_plot(shap_values[:, :, 1], X, show = False)
                 st.pyplot(fig_summary)
 
                 st.divider()
