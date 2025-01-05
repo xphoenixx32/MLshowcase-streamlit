@@ -74,8 +74,7 @@ dataset_columns = {
 
 # Allow user to upload a file or choose a predefined dataset
 with st.sidebar:
-    st.title("👾 Choose a Dataset")
-  
+    st.title("👾 *Choose a Dataset*")
     selected_dataset = st.selectbox(
         ' ⤵️ ',
         ['None'] + dataset_options  # Add 'None' for default empty selection
@@ -89,8 +88,11 @@ if selected_dataset != 'None':
 else:
     df = None
 #------------------------------------------------------------------------------------------------------#
-
-st.subheader("🎮 Switch Tab")
+col1, col2 = st.columns([1, 2])
+with col1:
+    st.logo("assets/button.png")
+with col2:
+    st.subheader("Switch Tab")
 
 # Option Menu
 with st.container():
