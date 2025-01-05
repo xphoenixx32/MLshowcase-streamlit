@@ -193,7 +193,7 @@ if df is not None:
             # Filter numeric and categorical columns
             numeric_columns = df.select_dtypes(include = ['number']).columns.tolist()
             if selected_dataset == "mpg":
-                st.warning(" 🚫 Avoid using 'name' in case of `over-loading` ")
+                st.error(" 🚫 Avoid using 'name' in case of `over-loading` ")
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
             else:
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
@@ -297,7 +297,7 @@ if df is not None:
             # Filter numeric and categorical columns
             numeric_columns = df.select_dtypes(include = ['number']).columns.tolist()
             if selected_dataset == "mpg":
-                st.warning(" 🚫 Avoid using 'name' in case of `over-loading` ")
+                st.error(" 🚫 Avoid using 'name' in case of `over-loading` ")
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
             else:
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
@@ -340,7 +340,7 @@ if df is not None:
 
             # Filter categorical columns
             if selected_dataset == "mpg":
-                st.warning(" 🚫 Avoid using 'name' in case of `over-loading` ")
+                st.error(" 🚫 Avoid using 'name' in case of `over-loading` ")
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
             else:
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
@@ -463,7 +463,7 @@ if df is not None:
             # Filter numeric and categorical columns
             numeric_columns = df.select_dtypes(include = ['number']).columns.tolist()
             if selected_dataset == "mpg":
-                st.warning(" 🚫 Avoid using 'name' in case of `over-loading` ")
+                st.error(" 🚫 Avoid using 'name' in case of `over-loading` ")
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
             else:
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
