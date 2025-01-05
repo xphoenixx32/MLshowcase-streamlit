@@ -502,29 +502,29 @@ if df is not None:
                                               '⌈ ² Interaction Effect ⌉',
                                               '⌈ ³ Prediction on Sample ⌉'])
         
-        # -------------------------------------------
+        # ------------------------------------------- #
         # MPG (Regression)
-        # -------------------------------------------
+        # ------------------------------------------- #
         if selected_dataset == "mpg":
-            # ---------- (1) Import models & parameters -------------
+            # ---------- (1) Import models & parameters ------------- #
             with open("assets/mpg_best_model.pkl", "rb") as f:
                 best_model = pickle.load(f)
         
             with open("assets/mpg_explainer.pkl", "rb") as f:
                 explainer = pickle.load(f)
         
-            shap_values = np.load("assets/mpg_shap_values.npy", allow_pickle=True)
+            shap_values = np.load("assets/mpg_shap_values.npy", allow_pickle = True)
         
             with open("assets/mpg_best_params.pkl", "rb") as f:
                 best_params = pickle.load(f)
         
-            # ---------- (2) Loading Data & Pre-processing ----------
+            # ---------- (2) Loading Data & Pre-processing ---------- #
             df = sns.load_dataset('mpg')
             X = df.drop(columns = ["mpg", "name"])
-            X = pd.get_dummies(X, drop_first=True)
+            X = pd.get_dummies(X, drop_first = True)
             y = df["mpg"]
             
-            # ---------- (3) Visualization ----------
+            # ---------- (3) Visualization ---------- #
             with tab30:
                 st.caption("*Regression Showcase*")
                 st.write("### *LightGBM Regressor*")
@@ -642,23 +642,23 @@ if df is not None:
                     )
                     st.pyplot(fig_waterfall)
         
-        # -------------------------------------------
+        # ------------------------------------------- #
         # Titanic (Classification)
-        # -------------------------------------------
+        # ------------------------------------------- #
         elif selected_dataset == "titanic":
-            # ---------- (1) Import models & parameters -------------
+            # ---------- (1) Import models & parameters ------------- #
             with open("assets/titanic_best_model.pkl", "rb") as f:
                 best_model = pickle.load(f)
         
             with open("assets/titanic_explainer.pkl", "rb") as f:
                 explainer = pickle.load(f)
         
-            shap_values = np.load("assets/titanic_shap_values.npy", allow_pickle=True)
+            shap_values = np.load("assets/titanic_shap_values.npy", allow_pickle = True)
         
             with open("assets/titanic_best_params.pkl", "rb") as f:
                 best_params = pickle.load(f)
         
-            # ---------- (2) Loading Data & Pre-processing ----------
+            # ---------- (2) Loading Data & Pre-processing ---------- #
             df = sns.load_dataset('titanic')
             
             valid_values = ["yes", "no"]
@@ -681,7 +681,7 @@ if df is not None:
             
             X = pd.get_dummies(X, drop_first = True)
         
-            # ---------- (3) Visualization ----------
+            # ---------- (3) Visualization ---------- #
             with tab30:
                 st.caption("*Classification Showcase*")
                 st.write("### *RandomForest Classifier*")
