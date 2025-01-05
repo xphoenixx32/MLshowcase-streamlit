@@ -578,9 +578,9 @@ if df is not None:
         
             with tab32:
                 st.caption("*Regression Showcase*")
-                st.write("### *Partial Dependence Plot*")
+                st.write("### *2D Partial Dependence Plot*")
                 
-                st.info("ℹ️ A Partial Dependence Plot (PDP) shows how one or two features influence the predicted outcome of a machine learning model, while keeping all other features constant. This helps you understand the relationship between the selected feature(s) and the model's predictions.")
+                st.info("ℹ️ 2D Partial Dependence Plot (PDP) shows how two features influence the predicted outcome of a machine learning model, while keeping all other features constant. This plot Helps identify interactions between key features, providing valuable insights.")
         
                 feature_1 = st.selectbox("Select Feature 1:", X.columns)
                 feature_2 = st.selectbox("Select Feature 2:", X.columns)
@@ -735,10 +735,10 @@ if df is not None:
         
             with tab32:
                 st.caption("*Classification Showcase*")
-                st.write("### *Partial Dependence Plot*")
+                st.write("### *2D Partial Dependence Plot*")
 
-                st.info("ℹ️ A Partial Dependence Plot (PDP) shows how one or two features influence the predicted outcome of a machine learning model, while keeping all other features constant. This helps you understand the relationship between the selected feature(s) and the model's predictions.")
-        
+                st.info("ℹ️ 2D Partial Dependence Plot (PDP) shows how two features influence the predicted outcome of a machine learning model, while keeping all other features constant. This plot Helps identify interactions between key features, providing valuable insights.")
+                
                 feature_1 = st.selectbox("Select Feature 1:", X.columns)
                 feature_2 = st.selectbox("Select Feature 2:", X.columns)
         
