@@ -24,6 +24,8 @@ from streamlit_option_menu import option_menu
 
 st.title("a Demo of ML Model & XAI")
 st.caption("*using **Machine Learning** method to modeling seaborn dataset, leveraging **SHAP value** to explain the explanatory power of independent variables*")
+st.logo("balloon")
+
 sns.set_theme(style = "whitegrid")
 #------------------------------------------------------------------------------------------------------#
 
