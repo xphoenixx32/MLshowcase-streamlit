@@ -22,7 +22,8 @@ from lightgbm import LGBMRegressor
 from streamlit_option_menu import option_menu
 #------------------------------------------------------------------------------------------------------#
 
-st.title("Machine Learning & XAI showcase")
+st.title("a Demo of ML Model & XAI")
+st.subheader("*using **Machine Learning** method to modeling seaborn dataset, leveraging **SHAP value** to explain the explanatory power of independent variables*")
 sns.set_theme(style = "whitegrid")
 #------------------------------------------------------------------------------------------------------#
 
