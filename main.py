@@ -769,13 +769,13 @@ if df is not None:
                     The confusion matrix provides a detailed breakdown of the model's performance for each class:
                     - *Precision*
                         > The proportion of correctly predicted positive observations to the total predicted positives.
-                        > Calculation Formula: \(\frac{\text{True Positives}}{\text{True Positives} + \text{False Positives}}\)
+                        - Calculation Formula: \(\frac{\text{True Positives}}{\text{True Positives} + \text{False Positives}}\)
                     - *Recall*
                         > The proportion of correctly predicted positive observations to the all observations in the actual class.
-                        > Calculation Formula: \(\frac{\text{True Positives}}{\text{True Positives} + \text{False Negatives}}\)
+                        - Calculation Formula: \(\frac{\text{True Positives}}{\text{True Positives} + \text{False Negatives}}\)
                     - *F1-Score* 
                         > The harmonic mean of precision and recall, balancing both metrics.
-                        > Calculation Formula:: \[ 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} \]
+                        - Calculation Formula: \[ 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} \]
                     - *Support*
                         > The actual number of occurrences of each class in the dataset.
                     - *Additional metrics*
