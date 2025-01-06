@@ -33,7 +33,7 @@
 
 ```plaintext
 ml-xai-demo/
-├── app.py                  # Main Streamlit app file
+├── main.py                  # Main Streamlit app file
 ├── assets/                 # Contains models, SHAP values, and other assets
 ├── requirements.txt        # Python dependencies
 └── README.md               # Documentation
