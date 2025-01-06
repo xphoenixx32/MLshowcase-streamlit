@@ -15,7 +15,10 @@
 - **Dataset Summary**
   - View column descriptions, data types, and statistics.
 - **Exploratory Data Analysis (EDA)**:
-  - Perform ANOVA, correlation analysis(including VIF), and visualize data distributions.
+  - ANOVA(`one-way` & `three-way`)
+  - Visualize data distributions
+  - Multi-Collinearity diagnosis(`VIF`)
+  - Correlation analysis(`Correlation Matrix` & `Pair plot`)
 - **Machine Learning Models**
   - Regression case with `LGBMRegressor` on the `mpg` dataset.
   - Classification case with `RandomForestClassifier` on the `titanic` dataset.
