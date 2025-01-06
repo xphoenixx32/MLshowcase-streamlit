@@ -601,7 +601,11 @@ if df is not None:
                 st.write("### *2D Partial Dependence Plot*")
                 
                 st.info("ℹ️ 2D Partial Dependence Plot (PDP) shows how two features influence the predicted outcome of a machine learning model, while keeping all other features constant. This plot Helps identify interactions between key features, providing valuable insights.")
-                st.success("Color or Height represents the model's prediction value. A smooth surface suggests minimal interaction between the two features, while distinct peaks or valleys indicate significant interaction effects.")
+                st.success('''
+                    Color or Height represents the model's prediction value. 
+                    - A *smooth* surface suggests **minimal interaction** between the two features
+                    - Distinct *peaks* or *valleys* indicate **significant interaction** effects
+                ''')
                 
                 feature_1 = st.selectbox("Select Feature 1:", X.columns)
                 feature_2 = st.selectbox("Select Feature 2:", X.columns)
