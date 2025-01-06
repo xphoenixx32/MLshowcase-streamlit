@@ -325,21 +325,21 @@ if df is not None:
 
             if numeric_columns and categorical_columns:
                 # Allow user to select a categorical column and a numeric column
-                selected_category_1 = st.selectbox('Select FIRST `Categorical` Column',
+                selected_category_1 = st.selectbox('1️⃣ Select FIRST `Categorical` Column',
                                                    categorical_columns,
                                                    key = 'category_selector_1st_tab11',
                                                   )
-                selected_category_2 = st.selectbox('Select SECOND `Categorical` Column',
+                selected_category_2 = st.selectbox('2️⃣ Select SECOND `Categorical` Column',
                                                    categorical_columns,
                                                    key = 'category_selector_2nd_tab11',
                                                   )
-                selected_category_3 = st.selectbox('Select `Categorical` Column for Further Testify',
+                selected_category_3 = st.selectbox('3️⃣ Select `Categorical` Column for Further Testify',
                                                    categorical_columns,
                                                    key = 'category_selector_3rd_tab11',
                                                   )
-                st.info(" Selected `Categorical` Column Should be Different ", icon = "ℹ️")
+                st.warning(" Selected `Categorical` Column Should be Different ", icon = "⚠️")
                 st.error(" If there's less than 2 `Categorical` Columns in the Dataset then this Tab is Unavailble ", icon = "⛔")
-                selected_numeric_column = st.selectbox('Select `Numeric` Column',
+                selected_numeric_column = st.selectbox('♾️ Select `Numeric` Column',
                                                        numeric_columns,
                                                        key = 'numeric_selector_tab11',
                                                        )
@@ -408,12 +408,12 @@ if df is not None:
                 unique_category_values = df[selected_category_column].unique().tolist()
 
                 # Allow user to select numeric columns for X and Y axes
-                st.info(" X & Y Should be Different ", icon = "ℹ️")
-                selected_x = st.selectbox('Select *X-axis* column `Numeric`',
+                st.warning(" X & Y `Numeric` Should be Different ", icon = "⚠️")
+                selected_x = st.selectbox('1️⃣ Select *X-axis* column `Numeric`',
                                           numeric_columns,
                                           key = 'x_axis_selector_tab12',
                                           )
-                selected_y = st.selectbox('Select *Y-axis* column `Numeric`',
+                selected_y = st.selectbox('2️⃣ Select *Y-axis* column `Numeric`',
                                           numeric_columns,
                                           key = 'y_axis_selector_tab12',
                                           )
