@@ -356,13 +356,13 @@ if df is not None:
                                                      inner = "quart", 
                                                      fill = False,
                                                     )
-
-                    st.pyplot(sns_splitviolin)
+                    fig = sns_splitviolin.get_figure()
+                    st.pyplot(fig)
 
                     st.divider()
                     
                     # 3-way ANOVA(Interaction plot)
-                    st.info(f' 3-way ANOVA Interaction Plot (only availalbe for `2+ Categorical` Var)', icon = "ℹ️")
+                    st.info(' 3-way ANOVA Interaction Plot (only availalbe for `2+ Categorical` Var)', icon = "ℹ️")
                     sns_catplot = sns.catplot(data = df, 
                                               x = selected_category_1, 
                                               y = selected_numeric_column, 
@@ -373,7 +373,7 @@ if df is not None:
                                              )
                     sns_catplot.despine(left = True)
 
-                    st.pyplot(sns_catplot)
+                    st.pyplot(sns_catplot.fig)
             else:
                 st.write("Ensure your dataset contains both `Numeric` and `Categorical` columns.", icon = "❗")
         #------------------------------------------------------------------------------------------------------#
