@@ -327,16 +327,18 @@ if df is not None:
                 # Allow user to select a categorical column and a numeric column
                 selected_category_1 = st.selectbox('Select FIRST `Categorical` Column',
                                                    categorical_columns,
-                                                   key = 'category_selector_tab11',
+                                                   key = 'category_selector_1st_tab11',
                                                   )
                 selected_category_2 = st.selectbox('Select SECOND `Categorical` Column',
                                                    categorical_columns,
-                                                   key = 'category_selector_tab11',
+                                                   key = 'category_selector_2nd_tab11',
                                                   )
                 selected_category_3 = st.selectbox('Select `Categorical` Column for Further Testify',
                                                    categorical_columns,
-                                                   key = 'category_selector_tab11',
+                                                   key = 'category_selector_3rd_tab11',
                                                   )
+                st.info(" Selected `Categorical` Column Should be Different ", icon = "ℹ️")
+                st.error(" If there's less than 2 `Categorical` Columns in the Dataset then this Tab is Unavailble ", icon = "⛔")
                 selected_numeric_column = st.selectbox('Select `Numeric` Column',
                                                        numeric_columns,
                                                        key = 'numeric_selector_tab11',
