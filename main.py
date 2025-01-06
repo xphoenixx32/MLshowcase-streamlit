@@ -348,16 +348,21 @@ if df is not None:
                     df = df.dropna(subset = [selected_numeric_column, selected_category_1, selected_category_2, selected_category_3])
                     # Split Violin
                     st.info(f'Split Violin of {selected_numeric_column} Groupby {selected_category_1} & {selected_category_2}', icon = "ℹ️")
-                    sns_splitviolin = sns.violinplot(data = df, 
-                                                     x = selected_category_1, 
-                                                     y = selected_numeric_column, 
+
+                    fig, ax = plt.subplots()
+                    sns_splitviolin = sns.violinplot(data = df,
+                                                     x = selected_category_1,
+                                                     y = selected_numeric_column,
                                                      hue = selected_category_2,
-                                                     split = True, 
-                                                     inner = "quart", 
+                                                     split = True,
+                                                     inner = "quart",
                                                      fill = False,
+                                                     ax = ax,
                                                     )
-                    fig_init = sns_splitviolin.get_figure()
-                    st.pyplot(fig_init)
+                    handles, labels = ax.get_legend_handles_labels()
+                    ax.legend(handles[:len(set(df[selected_category_2]))], labels[:len(set(df[selected_category_2]))], title=selected_category_2)
+                    
+                    st.pyplot(fig)
 
                     st.divider()
                     
