@@ -357,7 +357,7 @@ if df is not None:
                                                      fill = False,
                                                     )
 
-                    st.pyplot(sns_splitviolin.fig)
+                    st.pyplot(sns_splitviolin)
 
                     st.divider()
                     
@@ -373,7 +373,7 @@ if df is not None:
                                              )
                     sns_catplot.despine(left = True)
 
-                    st.pyplot(sns_catplot.fig)
+                    st.pyplot(sns_catplot)
             else:
                 st.write("Ensure your dataset contains both `Numeric` and `Categorical` columns.", icon = "❗")
         #------------------------------------------------------------------------------------------------------#
