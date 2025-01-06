@@ -11,21 +11,21 @@
 ## 📎 Features
 
 - **Dataset Selection**
-  - Choose between preloaded datasets (`mpg` and `titanic`) or upload your custom dataset.
+  > - Choose between preloaded datasets (`mpg` and `titanic`) or upload your custom dataset.
 - **Dataset Summary**
-  - View column descriptions, data types, and statistics.
+  > - View column descriptions, data types, and statistics.
 - **Exploratory Data Analysis (EDA)**:
-  - ANOVA(`one-way` & `three-way`)
-  - Visualize data distributions
-  - Multi-Collinearity diagnosis(`VIF`)
-  - Correlation analysis(`Correlation Matrix` & `Pair plot`)
+  > - ANOVA(`one-way` & `three-way`)
+  > - Visualize data distributions
+  > - Multi-Collinearity diagnosis(`VIF`)
+  > - Correlation analysis(`Correlation Matrix` & `Pair plot`)
 - **Machine Learning Models**
-  - Regression case with `LGBMRegressor` on the `mpg` dataset.
-  - Classification case with `RandomForestClassifier` on the `titanic` dataset.
+  > - Regression case with `LGBMRegressor` on the `mpg` dataset.
+  > - Classification case with `RandomForestClassifier` on the `titanic` dataset.
 - **Explainable AI**(XAI)
-  - SHAP summary plots for feature importance.
-  - Partial dependence plots for interaction effects.
-  - SHAP waterfall plots for individual predictions.
+  > - SHAP summary plots for feature importance.
+  > - 2-Dimensional Partial dependence plots(PDP) for interaction effects.
+  > - SHAP waterfall plots for individual predictions.
 
 ---
 
