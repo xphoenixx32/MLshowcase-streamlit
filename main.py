@@ -519,6 +519,7 @@ if df is not None:
             ''')
             st.warning(" Comparison between Numeric Var GroupBy Categorical Var  ", icon = "🕹️")
             st.success('''
+                Pair plot is useful for:
                 > - quickly exploring the relationships
                 > - spotting correlations
                 > - identifying any patterns or outliers
