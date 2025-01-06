@@ -525,7 +525,7 @@ if df is not None:
             with tab30:
                 st.caption("*Regression Showcase*")
                 st.write("### *LightGBM Regressor*")
-                st.warning(" 🎖️ Prediction on the Fuel Efficiency of cars `mpg` (*Miles per Gallon*) ")
+                st.warning(" 🎖️ Prediction on the Fuel Efficiency of cars  `mpg`  (*Miles per Gallon*) ")
         
                 y_pred = best_model.predict(X)
                 r2 = r2_score(y, y_pred)
@@ -603,8 +603,8 @@ if df is not None:
                 st.info("ℹ️ 2D Partial Dependence Plot (PDP) shows how two features influence the predicted outcome of a machine learning model, while keeping all other features constant. This plot Helps identify interactions between key features, providing valuable insights.")
                 st.success('''
                     Color or Height represents the model's prediction value. 
-                    - A *smooth* surface suggests **minimal interaction** between the two features
-                    - Distinct *peaks* or *valleys* indicate **significant interaction** effects
+                    - A *Smooth* surface suggests **minimal interaction** between the two features
+                    - Distinct *Peaks* or *Valleys* indicate **significant interaction** effects
                 ''')
                 
                 feature_1 = st.selectbox("Select Feature 1:", X.columns)
@@ -686,7 +686,7 @@ if df is not None:
             with tab30:
                 st.caption("*Classification Showcase*")
                 st.write("### *RandomForest Classifier*")
-                st.warning(" 🎖️ Prediction on `alived` of Titanic passengers (*is alived or not*) ")
+                st.warning(" 🎖️ Prediction on  `alived`  of Titanic passengers (*is alived or not*) ")
 
         
                 y_pred = best_model.predict(X)
@@ -768,7 +768,11 @@ if df is not None:
                 st.write("### *2D Partial Dependence Plot*")
 
                 st.info("ℹ️ 2D Partial Dependence Plot (PDP) shows how two features influence the predicted outcome of a machine learning model, while keeping all other features constant. This plot Helps identify interactions between key features, providing valuable insights.")
-                st.success("Color or Height represents the model's prediction value. A smooth surface suggests minimal interaction between the two features, while distinct peaks or valleys indicate significant interaction effects.")
+                st.success('''
+                    Color or Height represents the model's prediction value. 
+                    - A *Smooth* surface suggests **minimal interaction** between the two features
+                    - Distinct *Peaks* or *Valleys* indicate **significant interaction** effects
+                ''')
                 
                 feature_1 = st.selectbox("Select Feature 1:", X.columns)
                 feature_2 = st.selectbox("Select Feature 2:", X.columns)
