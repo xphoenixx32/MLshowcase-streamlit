@@ -349,7 +349,7 @@ if df is not None:
                     # Split Violin
                     st.info(f'Split Violin of {selected_numeric_column} Groupby {selected_category_1} & {selected_category_2}', icon = "ℹ️")
 
-                    fig, ax = plt.subplots()
+                    fig, ax = plt.subplots(figsize = (10,6))
                     sns_splitviolin = sns.violinplot(data = df,
                                                      x = selected_category_1,
                                                      y = selected_numeric_column,
@@ -360,7 +360,11 @@ if df is not None:
                                                      ax = ax,
                                                     )
                     handles, labels = ax.get_legend_handles_labels()
-                    ax.legend(handles[:len(set(df[selected_category_2]))], labels[:len(set(df[selected_category_2]))], title=selected_category_2)
+                    ax.legend(handles[:len(set(df[selected_category_2]))], 
+                              labels[:len(set(df[selected_category_2]))], 
+                              title = selected_category_2,
+                              loc = 'upper right', 
+                              bbox_to_anchor = (1.2, 1))
                     
                     st.pyplot(fig)
 
