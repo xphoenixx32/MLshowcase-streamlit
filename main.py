@@ -193,8 +193,7 @@ if df is not None:
             # Filter numeric and categorical columns
             numeric_columns = df.select_dtypes(include = ['number']).columns.tolist()
             if selected_dataset == "mpg":
-                st.error(" 🚫  Avoid using 'name' in case of `over-loading` ")
-                categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
+                categorical_columns = [col for col in df.select_dtypes(include=['object', 'category']).columns if col != 'name']
             else:
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
             
@@ -242,7 +241,7 @@ if df is not None:
                     st.write(f"ANOVA p-value: {anova_result.pvalue:.3f}")
 
                     if anova_result.pvalue < 0.05:
-                        st.success("✅ The differences between groups are statistically significant (p < 0.05).")
+                        st.success("✅ The differences between groups `ARE` statistically significant (p < 0.05).")
                     else:
                         st.warning("⛔ The differences between groups are `NOT` statistically significant (p >= 0.05).")
                     
@@ -318,8 +317,7 @@ if df is not None:
             # Filter numeric and categorical columns
             numeric_columns = df.select_dtypes(include = ['number']).columns.tolist()
             if selected_dataset == "mpg":
-                st.error(" 🚫  Avoid using 'name' in case of `over-loading` ")
-                categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
+                categorical_columns = [col for col in df.select_dtypes(include=['object', 'category']).columns if col != 'name']
             else:
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
 
@@ -397,8 +395,7 @@ if df is not None:
 
             # Filter categorical columns
             if selected_dataset == "mpg":
-                st.error(" 🚫  Avoid using 'name' in case of `over-loading` ")
-                categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
+                categorical_columns = [col for col in df.select_dtypes(include=['object', 'category']).columns if col != 'name']
             else:
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
 
@@ -531,8 +528,7 @@ if df is not None:
             # Filter numeric and categorical columns
             numeric_columns = df.select_dtypes(include = ['number']).columns.tolist()
             if selected_dataset == "mpg":
-                st.error(" 🚫  Avoid using 'name' in case of `over-loading` ")
-                categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
+                categorical_columns = [col for col in df.select_dtypes(include=['object', 'category']).columns if col != 'name']
             else:
                 categorical_columns = df.select_dtypes(include = ['object', 'category']).columns.tolist()
 
