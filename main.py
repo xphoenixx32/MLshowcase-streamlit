@@ -325,11 +325,15 @@ if df is not None:
 
             if numeric_columns and categorical_columns:
                 # Allow user to select a categorical column and a numeric column
-                selected_category_1 = st.selectbox('Select `Categorical` Column',
+                selected_category_1 = st.selectbox('Select FIRST `Categorical` Column',
                                                    categorical_columns,
                                                    key = 'category_selector_tab11',
                                                   )
-                selected_category_2 = st.selectbox('Select `Categorical` Column',
+                selected_category_2 = st.selectbox('Select SECOND `Categorical` Column',
+                                                   categorical_columns,
+                                                   key = 'category_selector_tab11',
+                                                  )
+                selected_category_3 = st.selectbox('Select `Categorical` Column for Further Testify',
                                                    categorical_columns,
                                                    key = 'category_selector_tab11',
                                                   )
@@ -338,8 +342,8 @@ if df is not None:
                                                        key = 'numeric_selector_tab11',
                                                        )
 
-                if selected_category_column and selected_numeric_column:
-                    df = df.dropna(subset = [selected_numeric_column, selected_category_1, selected_category_2])
+                if selected_numeric_column and selected_category_1 and selected_category_2 and selected_category_3:
+                    df = df.dropna(subset = [selected_numeric_column, selected_category_1, selected_category_2, selected_category_3])
                     # Split Violin
                     st.info(f'Split Violin of {selected_numeric_column} Groupby {selected_category_1} & {selected_category_2}', icon = "ℹ️")
                     sns_splitviolin = sns.violinplot(data = df, 
@@ -357,11 +361,6 @@ if df is not None:
                     
                     # 3-way ANOVA(Interaction plot)
                     st.info(f' 3-way ANOVA Interaction Plot (only availalbe for `2+ Categorical` Var)', icon = "ℹ️")
-                    selected_category_3 = st.selectbox('Select `Categorical` Column for Further Testify',
-                                                       categorical_columns,
-                                                       key = 'category_selector_tab11',
-                                                      )
-                    df = df.dropna(subset = [selected_category_3])
                     sns_catplot = sns.catplot(data = df, 
                                               x = selected_category_1, 
                                               y = selected_numeric_column, 
