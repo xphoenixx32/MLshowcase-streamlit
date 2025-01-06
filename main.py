@@ -765,37 +765,37 @@ if df is not None:
                 st.write("1️⃣", "**Confusion Matrix**:")
                 st.write(cm)
                 st.markdown("""
-                    ### Confusion Matrix Metrics
+                    ##### *Confusion Matrix Metrics*
                     
                     The confusion matrix provides a detailed breakdown of the model's performance for each class:
                     
-                    - **Precision**:
+                    - *Precision*
                         > The proportion of correctly predicted positive observations to the total predicted positives:
                 """)
                 st.latex(r"\text{Precision} = \frac{\text{True Positives}}{\text{True Positives} + \text{False Positives}}")
                 
                 st.markdown("""
-                    - **Recall**:
+                    - *Recall*
                         > The proportion of correctly predicted positive observations to all observations in the actual class:
                 """)
                 st.latex(r"\text{Recall} = \frac{\text{True Positives}}{\text{True Positives} + \text{False Negatives}}")
                 
                 st.markdown("""
-                    - **F1-Score**:
+                    - *F1-Score*
                         The harmonic mean of precision and recall, balancing both metrics:
                 """)
                 st.latex(r"F1 = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}")
                 
                 st.markdown("""
-                    - **Support**:
+                    - *Support*
                        > The actual number of occurrences of each class in the dataset.
                     
-                    ### Additional Metrics
-                    - **Accuracy**:
+                    ##### *Additional Metrics*
+                    - **Accuracy*
                        > The overall percentage of correctly predicted observations.
-                    - **Macro Average**:
+                    - *Macro Average**:
                        > Average performance across all classes, treating each class equally.
-                    - **Weighted Average**:
+                    - *Weighted Average*
                        > Average performance weighted by the support of each class.
                 """)
 
