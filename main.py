@@ -186,7 +186,7 @@ if df is not None:
         #------------------------------------------------------------------------------------------------------#
         with tab10:
             st.markdown('''
-                ##### *One-way ANOVA & Violin Plot*
+                #### *One-way ANOVA & Violin Plot*
             ''')
             st.warning(" Testing the Statistically Significant Differences ", icon = "🕹️")
             
@@ -311,7 +311,7 @@ if df is not None:
         #------------------------------------------------------------------------------------------------------#
         with tab11:
             st.markdown('''
-                ##### *Grouped split Violins & 3-way ANOVA*
+                #### *Grouped split Violins & 3-way ANOVA*
             ''')
             st.warning(" Realize the Difference Accross Multiple Categorical Var ", icon = "🕹️")
             
@@ -387,6 +387,9 @@ if df is not None:
                 st.write("Ensure your dataset contains both `Numeric` and `Categorical` columns.", icon = "❗")
         #------------------------------------------------------------------------------------------------------#
         with tab12:
+            st.markdown('''
+                #### *2-Dimensional Density Plot*
+            ''')
             st.warning(" Brief Realization on Correlation by Categorical Var Between Numeric Var ", icon = "🕹️")
             
             # Filter numeric columns
@@ -454,7 +457,7 @@ if df is not None:
         #------------------------------------------------------------------------------------------------------#
         with tab13:
             st.markdown('''
-                ##### *Variance Inflation Factors(VIF) & Correlation Matrix Heatmap*
+                #### *Variance Inflation Factors(VIF) & Correlation Matrix Heatmap*
             ''')
             st.warning("Check the Multi-collinearity between Numeric Variables", icon = "🕹️")
             
@@ -515,7 +518,7 @@ if df is not None:
         #------------------------------------------------------------------------------------------------------#
         with tab14:
             st.markdown('''
-                ##### *Overall Pair plot*
+                #### *Overall Pair plot*
             ''')
             st.warning(" Comparison between Numeric Var GroupBy Categorical Var  ", icon = "🕹️")
             st.success('''
