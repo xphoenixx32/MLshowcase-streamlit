@@ -356,8 +356,8 @@ if df is not None:
                                                      inner = "quart", 
                                                      fill = False,
                                                     )
-                    fig = sns_splitviolin.get_figure()
-                    st.pyplot(fig)
+                    fig_init = sns_splitviolin.get_figure()
+                    st.pyplot(fig_init)
 
                     st.divider()
                     
