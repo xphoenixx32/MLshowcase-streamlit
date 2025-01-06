@@ -313,6 +313,7 @@ if df is not None:
                 #### *Grouped split Violins & 3-way ANOVA*
             ''')
             st.warning(" Realize the Difference Accross Multiple Categorical Var ", icon = "🕹️")
+            st.error(" If there's less than 2 `Categorical` Columns in the Dataset then this Tab is Unavailble ", icon = "⛔")
             
             # Filter numeric and categorical columns
             numeric_columns = df.select_dtypes(include = ['number']).columns.tolist()
@@ -336,7 +337,6 @@ if df is not None:
                                                    key = 'category_selector_3rd_tab11',
                                                   )
                 st.warning(" Selected `Categorical` Column Should be Different ", icon = "⚠️")
-                st.error(" If there's less than 2 `Categorical` Columns in the Dataset then this Tab is Unavailble ", icon = "⛔")
                 selected_numeric_column = st.selectbox('♾️ Select `Numeric` Column',
                                                        numeric_columns,
                                                        key = 'numeric_selector_tab11',
