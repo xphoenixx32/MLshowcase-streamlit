@@ -536,7 +536,7 @@ if df is not None:
                 st.markdown(
                     """
                     - R-squared measures the proportion of variance in the target variable that is explained by the model.
-                    - A score of 0.94 indicates that 94% of the variability in the target variable is explained by the model, which demonstrates a strong fit.
+                        > A score of 0.94 indicates that 94% of the variability in the target variable is explained by the model, which demonstrates a strong fit.
                     """)
 
                 st.divider()
@@ -545,7 +545,7 @@ if df is not None:
                 st.markdown(
                     """
                     - This represents the mean of the residuals (difference between observed and predicted values).
-                    - A value close to 0 implies that the model's predictions, on average, are unbiased.
+                        > A value close to 0 implies that the model's predictions, on average, are unbiased.
                     """)
 
                 st.divider()
@@ -554,7 +554,7 @@ if df is not None:
                 st.markdown(
                     """
                     - MAE measures the average magnitude of the errors in a set of predictions, without considering their direction.
-                    - An MAE of 1.37 indicates that the model's predictions deviate from the actual values by an average of 1.37 units.
+                        > An MAE of 1.37 indicates that the model's predictions deviate from the actual values by an average of 1.37 units.
                     """)
 
                 st.divider()
@@ -562,8 +562,10 @@ if df is not None:
                 st.write("4️⃣", "**Best Model Parameters** *(GridSearchCV)*", best_params)
                 st.markdown(
                     """
-                    - max_depth: This parameter controls the maximum depth of a tree. Limiting the depth helps reduce overfitting while maintaining model performance.
-                    - n_estimators: This parameter specifies the number of boosting iterations (trees). A value of 100 strikes a balance between computational efficiency and prediction accuracy.
+                    - max_depth: 
+                        > This parameter controls the maximum depth of a tree. Limiting the depth helps reduce overfitting while maintaining model performance.
+                    - n_estimators: 
+                        > This parameter specifies the number of boosting iterations (trees). A value of 100 strikes a balance between computational efficiency and prediction accuracy.
                     """)
         
             with tab31:
@@ -699,17 +701,22 @@ if df is not None:
                 st.markdown(
                     """
                     The confusion matrix provides a detailed breakdown of the model's performance for each class:
-                    
-                    - Precision: The proportion of correctly predicted positive observations to the total predicted positives.
-                    - Recall: The proportion of correctly predicted positive observations to the all observations in the actual class.
-                    - F1-Score: The harmonic mean of precision and recall, balancing both metrics.
-                    - Support: The actual number of occurrences of each class in the dataset.
-                    
+                    - Precision 
+                        > The proportion of correctly predicted positive observations to the total predicted positives.
+                    - Recall
+                        > The proportion of correctly predicted positive observations to the all observations in the actual class.
+                    - F1-Score 
+                        > The harmonic mean of precision and recall, balancing both metrics.
+                    - Support 
+                        > The actual number of occurrences of each class in the dataset.
+                    ---
                     Additional metrics:
-                    
-                    - Accuracy: The overall percentage of correctly predicted observations.
-                    - Macro Average: Average performance across all classes, treating each class equally.
-                    - Weighted Average: Average performance weighted by the support of each class.
+                    - Accuracy 
+                        > The overall percentage of correctly predicted observations.
+                    - Macro Average
+                        > Average performance across all classes, treating each class equally.
+                    - Weighted Average
+                        > Average performance weighted by the support of each class.
                     """)
 
                 st.divider()
@@ -717,7 +724,7 @@ if df is not None:
                 st.write("2️⃣", f"**F1-score**: *{f1:.3f}*")
                 st.markdown(
                     """
-                    The overall F1-score for the model is 0.916, indicating strong balance between precision and recall.
+                    The overall F1-score for the model is *0.916*, indicating strong balance between precision and recall.
                     """)
 
                 st.divider()
@@ -725,8 +732,10 @@ if df is not None:
                 st.write("3️⃣", "**Best Model Parameters** *(GridSearchCV)*:", best_params)
                 st.markdown(
                     """
-                    - max_depth: This parameter controls the maximum depth of a tree. Limiting the depth helps reduce overfitting while maintaining model performance.
-                    - n_estimators: This parameter specifies the number of boosting iterations (trees). A value of 100 strikes a balance between computational efficiency and prediction accuracy.
+                    - max_depth: 
+                        > This parameter controls the maximum depth of a tree. Limiting the depth helps reduce overfitting while maintaining model performance.
+                    - n_estimators: 
+                        > This parameter specifies the number of boosting iterations (trees). A value of 100 strikes a balance between computational efficiency and prediction accuracy.
                     """)
         
             with tab31:
