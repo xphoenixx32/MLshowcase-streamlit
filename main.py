@@ -347,7 +347,7 @@ if df is not None:
                     # Split Violin
                     st.info(f'Split Violin of {selected_numeric_column} Groupby {selected_category_1} & {selected_category_2}', icon = "ℹ️")
 
-                    fig, ax = plt.subplots(figsize = (10,6))
+                    fig, ax = plt.subplots(figsize = (12,6))
                     sns_splitviolin = sns.violinplot(data = df,
                                                      x = selected_category_1,
                                                      y = selected_numeric_column,
@@ -496,7 +496,7 @@ if df is not None:
                     mask = np.triu(np.ones_like(correlation_matrix, dtype=bool))
         
                     # Plot the heatmap
-                    fig, ax = plt.subplots(figsize = (12, 12))
+                    fig, ax = plt.subplots(figsize = (12, 9))
                     sns.heatmap(correlation_matrix,
                                 mask = mask,  # Apply the mask to hide the upper triangle
                                 annot = True,
@@ -678,7 +678,7 @@ if df is not None:
                 st.info("ℹ️ This showing each feature impact Negatively or Positively on the model's output.")
                 st.success("The combination of position (impact on the SHAP value) and color (feature value) allows you to understand how the magnitude of a feature value influences the prediction.")
                 
-                fig_summary, ax_summary = plt.subplots()
+                fig_summary, ax_summary = plt.subplots(figsize = (10, 6))
                 shap.summary_plot(shap_values, X, show = False)
                 st.pyplot(fig_summary)
 
@@ -716,7 +716,7 @@ if df is not None:
                 feature_2 = st.selectbox("Select Feature 2:", X.columns)
         
                 if feature_1 and feature_2:
-                    fig_pdp, ax_pdp = plt.subplots(figsize = (8, 6))
+                    fig_pdp, ax_pdp = plt.subplots(figsize = (10, 6))
                     PartialDependenceDisplay.from_estimator(
                         estimator = best_model,
                         X = X,
@@ -895,7 +895,7 @@ if df is not None:
                 # st.success("✅ being a man (*who_man*) may negatively influence survival predictions (negative SHAP values), while being a woman (*who_woman*) has a positive influence.")
                 # st.info("ℹ️ *age* plays an essential role in survival prediction, and higher ticket prices (*fare*) correlate with better survival odds.")
 
-                fig_summary, ax_summary = plt.subplots()
+                fig_summary, ax_summary = plt.subplots(figsize = (10, 6))
                 # with Two-classification: shap_values.shape = (n_samples, n_features, 2)
                 shap.summary_plot(shap_values[:, :, 1], X, show = False)
                 st.pyplot(fig_summary)
@@ -934,7 +934,7 @@ if df is not None:
                 feature_2 = st.selectbox("Select Feature 2:", X.columns)
         
                 if feature_1 and feature_2:
-                    fig_pdp, ax_pdp = plt.subplots(figsize = (8, 6))
+                    fig_pdp, ax_pdp = plt.subplots(figsize = (10, 6))
                     PartialDependenceDisplay.from_estimator(
                         estimator = best_model,
                         X = X,
