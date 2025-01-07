@@ -636,13 +636,32 @@ if df is not None:
         
             with tab31:
                 st.caption("*Regression Showcase using The **Boosting** Method in Ensemble Learning*")
+                st.write("### *Feature Importance Pie Chart*")
+                feature_importances = np.mean(np.abs(shap_values), axis = 0)  # 計算特徵重要性 (平均絕對 SHAP 值)
+                feature_names = X.columns
+                
+                # Pie Chart
+                fig_pie, ax_pie = plt.subplots()
+                ax_pie.pie(
+                    feature_importances, 
+                    labels = feature_names, 
+                    autopct = '%1.1f%%', 
+                    startangle = 140, 
+                    wedgeprops = {'edgecolor': 'black'}
+                )
+                ax_pie.set_title("Feature Importance")
+                
+                st.pyplot(fig_pie)
+
+                st.divider()
+                
                 st.write("### *SHAP Summary Plot*")
 
                 st.info("ℹ️ This summary plot visualizes SHAP values, showing the impact of each feature on the model's output.")
                 st.success("The combination of position (impact on the SHAP value) and color (feature value) allows you to understand how the magnitude of a feature value influences the prediction.")
         
                 fig_summary, ax_summary = plt.subplots()
-                shap.summary_plot(shap_values, X, show=False)
+                shap.summary_plot(shap_values, X, show = False)
                 st.pyplot(fig_summary)
 
                 st.divider()
@@ -681,11 +700,11 @@ if df is not None:
                 if feature_1 and feature_2:
                     fig_pdp, ax_pdp = plt.subplots(figsize=(6, 4))
                     PartialDependenceDisplay.from_estimator(
-                        estimator=best_model,
-                        X=X,
+                        estimator = best_model,
+                        X = X,
                         features = [(feature_1, feature_2)],
-                        kind="average",
-                        ax=ax_pdp
+                        kind = "average",
+                        ax = ax_pdp
                     )
                     st.pyplot(fig_pdp)
         
@@ -702,12 +721,12 @@ if df is not None:
                     fig_waterfall, ax_waterfall = plt.subplots()
                     shap.waterfall_plot(
                         shap.Explanation(
-                            base_values=explainer.expected_value,
-                            values=shap_values[row_index],
-                            data=X.iloc[row_index],
-                            feature_names=X.columns.tolist()
+                            base_values = explainer.expected_value,
+                            values = shap_values[row_index],
+                            data = X.iloc[row_index],
+                            feature_names = X.columns.tolist()
                         ),
-                        show=False
+                        show = False
                     )
                     st.pyplot(fig_waterfall)
         
@@ -820,6 +839,25 @@ if df is not None:
         
             with tab31:
                 st.caption("*Classification Showcase using The **Bagging** Method in Ensemble Learning*")
+                st.write("### *Feature Importance Pie Chart*")
+                feature_importances = np.mean(np.abs(shap_values[:, :, 1]), axis=0)  # 計算特徵重要性 (平均絕對 SHAP 值)
+                feature_names = X.columns
+                
+                # Pie Chart
+                fig_pie, ax_pie = plt.subplots()
+                ax_pie.pie(
+                    feature_importances, 
+                    labels = feature_names, 
+                    autopct = '%1.1f%%', 
+                    startangle = 140, 
+                    wedgeprops = {'edgecolor': 'black'}
+                )
+                ax_pie.set_title("Feature Importance")
+                
+                st.pyplot(fig_pie)
+
+                st.divider()
+                
                 st.write("### *SHAP Summary Plot*")
 
                 st.info("ℹ️ This summary plot visualizes SHAP values, showing the impact of each feature on the model's output.")
@@ -884,17 +922,17 @@ if df is not None:
                 st.info("ℹ️ Waterfall plot illustrates how specific features contribute to the final prediction for a single instance in a machine learning model.")
         
                 row_index = st.number_input("Select a Row Index of a Sample ⤵️", 
-                                            min_value=0, 
-                                            max_value=len(X) - 1, 
-                                            step=1)
+                                            min_value = 0, 
+                                            max_value = len(X) - 1, 
+                                            step = 1)
                 if row_index is not None:
                     fig_waterfall, ax_waterfall = plt.subplots()
                     shap.waterfall_plot(
                         shap.Explanation(
-                            base_values=explainer.expected_value[1],
-                            values=shap_values[1][row_index, :],
-                            data=X.iloc[row_index, :],
-                            feature_names=X.columns.tolist()
+                            base_values = explainer.expected_value[1],
+                            values = shap_values[1][row_index, :],
+                            data = X.iloc[row_index, :],
+                            feature_names = X.columns.tolist()
                         ),
                         show=False
                     )
