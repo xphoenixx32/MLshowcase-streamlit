@@ -680,19 +680,16 @@ if df is not None:
 
                 st.markdown('''
                 Key Components of the SHAP Summary Plot:
-                1. X-Axis (SHAP Values):
-                    - The X-axis represents the magnitude and direction of each feature's impact on the model's output.
-                    - Positive SHAP values indicate that the feature contributes positively to the prediction (e.g., leaning towards a specific class), while negative SHAP values indicate a negative contribution.  
-                --- 
-                2. Y-Axis (Feature Names):
-                    - Features are listed on the Y-axis, ranked by their importance. The most impactful features appear at the top.  
-                --- 
-                3. Point Distribution (Horizontal Spread):
-                    - The horizontal spread of points shows the range of the feature's impact across all samples. A wider spread suggests a feature has varying impacts on predictions.  
-                ---
-                4. Color (Feature Values):
-                    - Each point's color reflects the actual value of the feature for a given observation.
-                    - Typically, blue represents low feature values, while red represents high feature values.
+                > 1. X-Axis (SHAP Values):
+                    > - The X-axis represents the magnitude and direction of each feature's impact on the model's output.
+                    > - Positive SHAP values indicate that the feature contributes positively to the prediction (e.g., leaning towards a specific class), while negative SHAP values indicate a negative contribution.   
+                > 2. Y-Axis (Feature Names):
+                    > - Features are listed on the Y-axis, ranked by their importance. The most impactful features appear at the top.  
+                > 3. Point Distribution (Horizontal Spread):
+                    > - The horizontal spread of points shows the range of the feature's impact across all samples. A wider spread suggests a feature has varying impacts on predictions.  
+                > 4. Color (Feature Values):
+                    > - Each point's color reflects the actual value of the feature for a given observation.
+                    > - Typically, blue represents low feature values, while red represents high feature values.
                 ''')
         
             with tab32:
@@ -898,19 +895,16 @@ if df is not None:
 
                 st.markdown('''
                 Key Components of the SHAP Summary Plot:
-                1. X-Axis (SHAP Values):
-                    - The X-axis represents the magnitude and direction of each feature's impact on the model's output.
-                    - Positive SHAP values indicate that the feature contributes positively to the prediction (e.g., leaning towards a specific class), while negative SHAP values indicate a negative contribution.  
-                --- 
-                2. Y-Axis (Feature Names):
-                    - Features are listed on the Y-axis, ranked by their importance. The most impactful features appear at the top.  
-                --- 
-                3. Point Distribution (Horizontal Spread):
-                    - The horizontal spread of points shows the range of the feature's impact across all samples. A wider spread suggests a feature has varying impacts on predictions.  
-                ---
-                4. Color (Feature Values):
-                    - Each point's color reflects the actual value of the feature for a given observation.
-                    - Typically, blue represents low feature values, while red represents high feature values.
+                > 1. X-Axis (SHAP Values):
+                    > - The X-axis represents the magnitude and direction of each feature's impact on the model's output.
+                    > - Positive SHAP values indicate that the feature contributes positively to the prediction (e.g., leaning towards a specific class), while negative SHAP values indicate a negative contribution.   
+                > 2. Y-Axis (Feature Names):
+                    > - Features are listed on the Y-axis, ranked by their importance. The most impactful features appear at the top.  
+                > 3. Point Distribution (Horizontal Spread):
+                    > - The horizontal spread of points shows the range of the feature's impact across all samples. A wider spread suggests a feature has varying impacts on predictions.  
+                > 4. Color (Feature Values):
+                    > - Each point's color reflects the actual value of the feature for a given observation.
+                    > - Typically, blue represents low feature values, while red represents high feature values.
                 ''')
         
             with tab32:
