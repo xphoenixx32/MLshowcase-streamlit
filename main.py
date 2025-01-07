@@ -637,27 +637,47 @@ if df is not None:
             with tab31:
                 st.caption("*Regression Showcase using The **Boosting** Method in Ensemble Learning*")
                 st.write("### *Feature Importance Pie Chart*")
+                st.info('''
+                    ℹ️ Feature importance indicates *how much each feature contributes to the model's predictions* 
+                    > Higher importance means the feature has a stronger influence on the outcome
+                ''')
+                
                 feature_importances = np.mean(np.abs(shap_values), axis = 0)  # 計算特徵重要性 (平均絕對 SHAP 值)
                 feature_names = X.columns
                 
                 # Pie Chart
+                # fig_pie, ax_pie = plt.subplots()
+                # ax_pie.pie(
+                #     feature_importances, 
+                #     labels = feature_names, 
+                #     autopct = '%1.1f%%', 
+                #     startangle = 140, 
+                #     wedgeprops = {'edgecolor': 'black'}
+                # )
+                # ax_pie.set_title("Feature Importance")
+                
+                # st.pyplot(fig_pie)
+                sorted_idx = np.argsort(feature_importances)[::-1]
+                sorted_importances = feature_importances[sorted_idx]
+                sorted_features = feature_names[sorted_idx]
+                
+                colors = plt.cm.Greens(np.linspace(0.3, 0.9, len(sorted_importances)))
+                
                 fig_pie, ax_pie = plt.subplots()
                 ax_pie.pie(
-                    feature_importances, 
-                    labels = feature_names, 
-                    autopct = '%1.1f%%', 
-                    startangle = 140, 
-                    wedgeprops = {'edgecolor': 'black'}
+                    sorted_importances,
+                    labels = sorted_features,
+                    autopct = '%1.1f%%',
+                    startangle = 140,
+                    colors = colors,
+                    wedgeprops = {'edgecolor': 'white'}
                 )
-                ax_pie.set_title("Feature Importance")
-                
-                st.pyplot(fig_pie)
 
                 st.divider()
                 
                 st.write("### *SHAP Summary Plot*")
 
-                st.info("ℹ️ This summary plot visualizes SHAP values, showing the impact of each feature on the model's output.")
+                st.info("ℹ️ This showing each feature impact Negatively or Positively on the model's output.")
                 st.success("The combination of position (impact on the SHAP value) and color (feature value) allows you to understand how the magnitude of a feature value influences the prediction.")
         
                 fig_summary, ax_summary = plt.subplots()
@@ -840,27 +860,47 @@ if df is not None:
             with tab31:
                 st.caption("*Classification Showcase using The **Bagging** Method in Ensemble Learning*")
                 st.write("### *Feature Importance Pie Chart*")
+                st.info('''
+                    ℹ️ Feature importance indicates *how much each feature contributes to the model's predictions* 
+                    > Higher importance means the feature has a stronger influence on the outcome
+                ''')
+                
                 feature_importances = np.mean(np.abs(shap_values[:, :, 1]), axis=0)  # 計算特徵重要性 (平均絕對 SHAP 值)
                 feature_names = X.columns
                 
-                # Pie Chart
+                # # Pie Chart
+                # fig_pie, ax_pie = plt.subplots()
+                # ax_pie.pie(
+                #     feature_importances, 
+                #     labels = feature_names, 
+                #     autopct = '%1.1f%%', 
+                #     startangle = 140, 
+                #     wedgeprops = {'edgecolor': 'black'}
+                # )
+                # ax_pie.set_title("Feature Importance")
+                
+                # st.pyplot(fig_pie)
+                sorted_idx = np.argsort(feature_importances)[::-1]
+                sorted_importances = feature_importances[sorted_idx]
+                sorted_features = feature_names[sorted_idx]
+                
+                colors = plt.cm.Greens(np.linspace(0.3, 0.9, len(sorted_importances)))
+                
                 fig_pie, ax_pie = plt.subplots()
                 ax_pie.pie(
-                    feature_importances, 
-                    labels = feature_names, 
-                    autopct = '%1.1f%%', 
-                    startangle = 140, 
-                    wedgeprops = {'edgecolor': 'black'}
+                    sorted_importances,
+                    labels = sorted_features,
+                    autopct = '%1.1f%%',
+                    startangle = 140,
+                    colors = colors,
+                    wedgeprops = {'edgecolor': 'white'}
                 )
-                ax_pie.set_title("Feature Importance")
-                
-                st.pyplot(fig_pie)
 
                 st.divider()
                 
                 st.write("### *SHAP Summary Plot*")
 
-                st.info("ℹ️ This summary plot visualizes SHAP values, showing the impact of each feature on the model's output.")
+                st.info("ℹ️ This showing each feature impact Negatively or Positively on the model's output.")
                 st.success("The combination of position (impact on the SHAP value) and color (feature value) allows you to understand how the magnitude of a feature value influences the prediction.")
 
                 # st.success("✅ being a man (*who_man*) may negatively influence survival predictions (negative SHAP values), while being a woman (*who_woman*) has a positive influence.")
