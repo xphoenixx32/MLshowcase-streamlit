@@ -707,7 +707,10 @@ if df is not None:
                 st.caption("*Regression Showcase using The **Boosting** Method in Ensemble Learning*")
                 st.write("### *2D Partial Dependence Plot*")
                 
-                st.info("ℹ️ 2D Partial Dependence Plot (PDP) shows how two features influence the predicted outcome of a machine learning model, while keeping all other features constant. This plot Helps identify interactions between key features, providing valuable insights.")
+                st.info('''
+                    ℹ️ 2D Partial Dependence Plot (PDP) shows how two features influence the predicted outcome of a machine learning model, while keeping all other features constant.
+                    > This plot Helps identify *interactions* between key features, providing valuable insights.
+                ''')
                 st.success('''
                     Color or Height represents the model's prediction value. 
                     - A *Smooth* surface suggests **minimal interaction** between the two features
@@ -933,7 +936,10 @@ if df is not None:
                 st.caption("*Classification Showcase using The **Bagging** Method in Ensemble Learning*")
                 st.write("### *2D Partial Dependence Plot*")
 
-                st.info("ℹ️ 2D Partial Dependence Plot (PDP) shows how two features influence the predicted outcome of a machine learning model, while keeping all other features constant. This plot Helps identify interactions between key features, providing valuable insights.")
+                st.info('''
+                    ℹ️ 2D Partial Dependence Plot (PDP) shows how two features influence the predicted outcome of a machine learning model, while keeping all other features constant.
+                    > This plot Helps identify *interactions* between key features, providing valuable insights.
+                ''')
                 st.success('''
                     Color or Height represents the model's prediction value. 
                     - A *Smooth* surface suggests **minimal interaction** between the two features
