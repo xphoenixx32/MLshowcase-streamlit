@@ -661,9 +661,15 @@ if df is not None:
                 sorted_importances = feature_importances[sorted_idx]
                 sorted_features = feature_names[sorted_idx]
                 
-                colors = plt.cm.Greens(np.linspace(0.3, 0.9, len(sorted_importances)))
+                top_n = 6
+                if len(sorted_importances) > top_n:
+                    other_importance = sum(sorted_importances[top_n:])
+                    sorted_importances = np.append(sorted_importances[:top_n], other_importance)
+                    sorted_features = list(sorted_features[:top_n]) + ['Other Features']
                 
-                fig_pie, ax_pie = plt.subplots()
+                colors = plt.cm.Greens(np.linspace(0.1, 0.9, len(sorted_importances)))
+                
+                fig_pie, ax_pie = plt.subplots(figsize = (8, 6))
                 ax_pie.pie(
                     sorted_importances,
                     labels = sorted_features,
@@ -720,7 +726,7 @@ if df is not None:
                 feature_2 = st.selectbox("Select Feature 2:", X.columns)
         
                 if feature_1 and feature_2:
-                    fig_pdp, ax_pdp = plt.subplots(figsize=(6, 4))
+                    fig_pdp, ax_pdp = plt.subplots(figsize = (8, 6))
                     PartialDependenceDisplay.from_estimator(
                         estimator = best_model,
                         X = X,
@@ -886,9 +892,15 @@ if df is not None:
                 sorted_importances = feature_importances[sorted_idx]
                 sorted_features = feature_names[sorted_idx]
                 
-                colors = plt.cm.Greens(np.linspace(0.3, 0.9, len(sorted_importances)))
+                top_n = 6
+                if len(sorted_importances) > top_n:
+                    other_importance = sum(sorted_importances[top_n:])
+                    sorted_importances = np.append(sorted_importances[:top_n], other_importance)
+                    sorted_features = list(sorted_features[:top_n]) + ['Other Features']
                 
-                fig_pie, ax_pie = plt.subplots()
+                colors = plt.cm.Greens(np.linspace(0.1, 0.9, len(sorted_importances)))
+                
+                fig_pie, ax_pie = plt.subplots(figsize = (8, 6))
                 ax_pie.pie(
                     sorted_importances,
                     labels = sorted_features,
@@ -949,14 +961,14 @@ if df is not None:
                 feature_2 = st.selectbox("Select Feature 2:", X.columns)
         
                 if feature_1 and feature_2:
-                    fig_pdp, ax_pdp = plt.subplots(figsize=(6, 4))
+                    fig_pdp, ax_pdp = plt.subplots(figsize = (8, 6))
                     PartialDependenceDisplay.from_estimator(
-                        estimator=best_model,
-                        X=X,
+                        estimator = best_model,
+                        X = X,
                         features = [(feature_1, feature_2)],
-                        kind="average",
-                        target=1,  
-                        ax=ax_pdp
+                        kind = "average",
+                        target = 1,  
+                        ax = ax_pdp
                     )
                     st.pyplot(fig_pdp)
         
