@@ -826,9 +826,9 @@ if df is not None:
                        > The actual number of occurrences of each class in the dataset.
                     
                     ##### *Additional Metrics*
-                    - **Accuracy*
+                    - *Accuracy*
                        > The overall percentage of correctly predicted observations.
-                    - *Macro Average**:
+                    - *Macro Average*
                        > Average performance across all classes, treating each class equally.
                     - *Weighted Average*
                        > Average performance weighted by the support of each class.
