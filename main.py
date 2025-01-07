@@ -657,7 +657,7 @@ if df is not None:
                 # ax_pie.set_title("Feature Importance")
                 
                 # st.pyplot(fig_pie)
-                sorted_idx = np.argsort(feature_importances)[::-1]
+                sorted_idx = np.argsort(feature_importances)
                 sorted_importances = feature_importances[sorted_idx]
                 sorted_features = feature_names[sorted_idx]
                 
@@ -672,6 +672,8 @@ if df is not None:
                     colors = colors,
                     wedgeprops = {'edgecolor': 'white'}
                 )
+                
+                st.pyplot(fig_pie)
 
                 st.divider()
                 
@@ -896,6 +898,8 @@ if df is not None:
                     wedgeprops = {'edgecolor': 'white'}
                 )
 
+                st.pyplot(fig_pie)
+                
                 st.divider()
                 
                 st.write("### *SHAP Summary Plot*")
