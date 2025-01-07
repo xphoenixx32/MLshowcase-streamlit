@@ -589,7 +589,7 @@ if df is not None:
             
             # ---------- (3) Visualization ---------- #
             with tab30:
-                st.caption("*Regression Showcase*")
+                st.caption("*Regression Showcase using The **Boosting** Method in Ensemble Learning*")
                 st.write("### *LightGBM Regressor*")
                 st.warning(" 🎖️ Prediction on the Fuel Efficiency of cars  `mpg`  (*Miles per Gallon*) ")
         
@@ -635,7 +635,7 @@ if df is not None:
                     """)
         
             with tab31:
-                st.caption("*Regression Showcase*")
+                st.caption("*Regression Showcase using The **Boosting** Method in Ensemble Learning*")
                 st.write("### *SHAP Summary Plot*")
 
                 st.info("ℹ️ This summary plot visualizes SHAP values, showing the impact of each feature on the model's output.")
@@ -665,7 +665,7 @@ if df is not None:
                 ''')
         
             with tab32:
-                st.caption("*Regression Showcase*")
+                st.caption("*Regression Showcase using The **Boosting** Method in Ensemble Learning*")
                 st.write("### *2D Partial Dependence Plot*")
                 
                 st.info("ℹ️ 2D Partial Dependence Plot (PDP) shows how two features influence the predicted outcome of a machine learning model, while keeping all other features constant. This plot Helps identify interactions between key features, providing valuable insights.")
@@ -690,7 +690,7 @@ if df is not None:
                     st.pyplot(fig_pdp)
         
             with tab33:
-                st.caption("*Regression Showcase*")
+                st.caption("*Regression Showcase using The **Boosting** Method in Ensemble Learning*")
                 st.write("### *SHAP Waterfall Plot*")
                 st.info("ℹ️ Waterfall plot illustrates how specific features contribute to the final prediction for a single instance in a machine learning model.")
         
@@ -752,7 +752,7 @@ if df is not None:
         
             # ---------- (3) Visualization ---------- #
             with tab30:
-                st.caption("*Classification Showcase*")
+                st.caption("*Classification Showcase using The **Bagging** Method in Ensemble Learning*")
                 st.write("### *RandomForest Classifier*")
                 st.warning(" 🎖️ Prediction on  `alived`  of Titanic passengers (*is alived or not*) ")
 
@@ -819,7 +819,7 @@ if df is not None:
                     """)
         
             with tab31:
-                st.caption("*Classification Showcase*")
+                st.caption("*Classification Showcase using The **Bagging** Method in Ensemble Learning*")
                 st.write("### *SHAP Summary Plot*")
 
                 st.info("ℹ️ This summary plot visualizes SHAP values, showing the impact of each feature on the model's output.")
@@ -853,7 +853,7 @@ if df is not None:
                 ''')
         
             with tab32:
-                st.caption("*Classification Showcase*")
+                st.caption("*Classification Showcase using The **Bagging** Method in Ensemble Learning*")
                 st.write("### *2D Partial Dependence Plot*")
 
                 st.info("ℹ️ 2D Partial Dependence Plot (PDP) shows how two features influence the predicted outcome of a machine learning model, while keeping all other features constant. This plot Helps identify interactions between key features, providing valuable insights.")
@@ -879,7 +879,7 @@ if df is not None:
                     st.pyplot(fig_pdp)
         
             with tab33:
-                st.caption("*Classification Showcase*")
+                st.caption("*Classification Showcase using The **Bagging** Method in Ensemble Learning*")
                 st.write("### *SHAP Waterfall Plot*")
                 st.info("ℹ️ Waterfall plot illustrates how specific features contribute to the final prediction for a single instance in a machine learning model.")
         
