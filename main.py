@@ -642,44 +642,34 @@ if df is not None:
                     > Higher importance means the feature has a stronger influence on the outcome
                 ''')
                 
+                st.write("### *Feature Importance Bar Chart*")
+                st.info('''
+                    ℹ️ Feature importance indicates *how much each feature contributes to the model's predictions* 
+                    > Higher importance means the feature has a stronger influence on the outcome
+                ''')
+                
                 feature_importances = np.mean(np.abs(shap_values), axis = 0)  # 計算特徵重要性 (平均絕對 SHAP 值)
                 feature_names = X.columns
                 
-                # Pie Chart
-                # fig_pie, ax_pie = plt.subplots()
-                # ax_pie.pie(
-                #     feature_importances, 
-                #     labels = feature_names, 
-                #     autopct = '%1.1f%%', 
-                #     startangle = 140, 
-                #     wedgeprops = {'edgecolor': 'black'}
-                # )
-                # ax_pie.set_title("Feature Importance")
-                
-                # st.pyplot(fig_pie)
-                sorted_idx = np.argsort(feature_importances)
+                sorted_idx = np.argsort(feature_importances)[::-1]
                 sorted_importances = feature_importances[sorted_idx]
                 sorted_features = feature_names[sorted_idx]
                 
-                top_n = 6
-                if len(sorted_importances) > top_n:
-                    other_importance = sum(sorted_importances[top_n:])
-                    sorted_importances = np.append(sorted_importances[:top_n], other_importance)
-                    sorted_features = list(sorted_features[:top_n]) + ['Other Features']
+                colors = plt.cm.Greens(np.linspace(0.9, 0.2, len(sorted_importances)))
                 
-                colors = plt.cm.Greens(np.linspace(0.1, 0.9, len(sorted_importances)))
-                
-                fig_pie, ax_pie = plt.subplots(figsize = (8, 6))
-                ax_pie.pie(
+                fig_bar, ax_bar = plt.subplots(figsize = (10, 6))
+                ax_bar.barh(
+                    sorted_features,
                     sorted_importances,
-                    labels = sorted_features,
-                    autopct = '%1.1f%%',
-                    startangle = 140,
-                    colors = colors,
-                    wedgeprops = {'edgecolor': 'white'}
+                    color = colors,
+                    edgecolor = 'black'
                 )
                 
-                st.pyplot(fig_pie)
+                ax_bar.set_xlabel("Importance Score", fontsize = 12)
+                ax_bar.set_ylabel("Features Name", fontsize = 12)
+                ax_bar.invert_yaxis()
+                
+                st.pyplot(fig_bar)
 
                 st.divider()
                 
@@ -687,7 +677,7 @@ if df is not None:
 
                 st.info("ℹ️ This showing each feature impact Negatively or Positively on the model's output.")
                 st.success("The combination of position (impact on the SHAP value) and color (feature value) allows you to understand how the magnitude of a feature value influences the prediction.")
-        
+                
                 fig_summary, ax_summary = plt.subplots()
                 shap.summary_plot(shap_values, X, show = False)
                 st.pyplot(fig_summary)
@@ -802,7 +792,6 @@ if df is not None:
                 st.caption("*Classification Showcase using The **Bagging** Method in Ensemble Learning*")
                 st.write("### *RandomForest Classifier*")
                 st.warning(" 🎖️ Prediction on  `alived`  of Titanic passengers (*is alived or not*) ")
-
         
                 y_pred = best_model.predict(X)
                 report_dict = classification_report(y, y_pred, output_dict = True)
@@ -867,50 +856,34 @@ if df is not None:
         
             with tab31:
                 st.caption("*Classification Showcase using The **Bagging** Method in Ensemble Learning*")
-                st.write("### *Feature Importance Pie Chart*")
+                st.write("### *Feature Importance Bar Chart*")
                 st.info('''
                     ℹ️ Feature importance indicates *how much each feature contributes to the model's predictions* 
                     > Higher importance means the feature has a stronger influence on the outcome
                 ''')
                 
-                feature_importances = np.mean(np.abs(shap_values[:, :, 1]), axis=0)  # 計算特徵重要性 (平均絕對 SHAP 值)
+                feature_importances = np.mean(np.abs(shap_values[:, :, 1]), axis = 0)  # 計算特徵重要性 (平均絕對 SHAP 值)
                 feature_names = X.columns
                 
-                # # Pie Chart
-                # fig_pie, ax_pie = plt.subplots()
-                # ax_pie.pie(
-                #     feature_importances, 
-                #     labels = feature_names, 
-                #     autopct = '%1.1f%%', 
-                #     startangle = 140, 
-                #     wedgeprops = {'edgecolor': 'black'}
-                # )
-                # ax_pie.set_title("Feature Importance")
-                
-                # st.pyplot(fig_pie)
                 sorted_idx = np.argsort(feature_importances)[::-1]
                 sorted_importances = feature_importances[sorted_idx]
                 sorted_features = feature_names[sorted_idx]
                 
-                top_n = 6
-                if len(sorted_importances) > top_n:
-                    other_importance = sum(sorted_importances[top_n:])
-                    sorted_importances = np.append(sorted_importances[:top_n], other_importance)
-                    sorted_features = list(sorted_features[:top_n]) + ['Other Features']
+                colors = plt.cm.Greens(np.linspace(0.9, 0.2, len(sorted_importances)))
                 
-                colors = plt.cm.Greens(np.linspace(0.1, 0.9, len(sorted_importances)))
-                
-                fig_pie, ax_pie = plt.subplots(figsize = (8, 6))
-                ax_pie.pie(
+                fig_bar, ax_bar = plt.subplots(figsize = (10, 6))
+                ax_bar.barh(
+                    sorted_features,
                     sorted_importances,
-                    labels = sorted_features,
-                    autopct = '%1.1f%%',
-                    startangle = 140,
-                    colors = colors,
-                    wedgeprops = {'edgecolor': 'white'}
+                    color = colors,
+                    edgecolor = 'black'
                 )
-
-                st.pyplot(fig_pie)
+                
+                ax_bar.set_xlabel("Importance Score", fontsize = 12)
+                ax_bar.set_ylabel("Features Name", fontsize = 12)
+                ax_bar.invert_yaxis()
+                
+                st.pyplot(fig_bar)
                 
                 st.divider()
                 
