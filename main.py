@@ -636,12 +636,6 @@ if df is not None:
         
             with tab31:
                 st.caption("*Regression Showcase using The **Boosting** Method in Ensemble Learning*")
-                st.write("### *Feature Importance Pie Chart*")
-                st.info('''
-                    ℹ️ Feature importance indicates *how much each feature contributes to the model's predictions* 
-                    > Higher importance means the feature has a stronger influence on the outcome
-                ''')
-                
                 st.write("### *Feature Importance Bar Chart*")
                 st.info('''
                     ℹ️ Feature importance indicates *how much each feature contributes to the model's predictions* 
