@@ -669,8 +669,11 @@ if df is not None:
                 
                 st.write("### *SHAP Summary Plot*")
 
-                st.info("ℹ️ This showing each feature impact Negatively or Positively on the model's output.")
-                st.success("The combination of position (impact on the SHAP value) and color (feature value) allows you to understand how the magnitude of a feature value influences the prediction.")
+                st.info("ℹ️ This plot allows you to understand how the magnitude of a feature value influences the prediction ")
+                st.success('''
+                SHAP (**SH**apley **A**dditive ex**P**lanations) is a model explanation method based on *game theory*
+                > It calculates the contribution of each feature to individual predictions and measures feature importance by averaging these contribution values.
+                ''')
                 
                 fig_summary, ax_summary = plt.subplots(figsize = (10, 6))
                 shap.summary_plot(shap_values, X, show = False)
@@ -888,8 +891,11 @@ if df is not None:
                 
                 st.write("### *SHAP Summary Plot*")
 
-                st.info("ℹ️ This showing each feature impact Negatively or Positively on the model's output.")
-                st.success("The combination of position (impact on the SHAP value) and color (feature value) allows you to understand how the magnitude of a feature value influences the prediction.")
+                st.info("ℹ️ This plot allows you to understand how the magnitude of a feature value influences the prediction ")
+                st.success('''
+                SHAP (**SH**apley **A**dditive ex**P**lanations) is a model explanation method based on *game theory*
+                > It calculates the contribution of each feature to individual predictions and measures feature importance by averaging these contribution values.
+                ''')
 
                 # st.success("✅ being a man (*who_man*) may negatively influence survival predictions (negative SHAP values), while being a woman (*who_woman*) has a positive influence.")
                 # st.info("ℹ️ *age* plays an essential role in survival prediction, and higher ticket prices (*fare*) correlate with better survival odds.")
