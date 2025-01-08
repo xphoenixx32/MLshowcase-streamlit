@@ -607,10 +607,11 @@ if df is not None:
 
                 st.divider()
                 
-                st.write("2️⃣", f"**Residual Mean**: *{np.mean(residuals):.2f}*")
+                st.write("2️⃣", f"**Mean Residual**: *{np.mean(residuals):.2f}*")
                 st.markdown(
                     """
-                    - This represents the **mean of the residuals** (*difference between observed and predicted values*).
+                    - This represents the mean of the **Difference** between *Observed* and *Predicted* values.
+                    - Use **Mean Residual** to check if the model has an overall bias on predict actual value.(`≈0`: no bias | `>0`: Underestimate | `<0`: Overestimate)
                         > A value close to 0 implies that the model's predictions, on average, are unbiased.
                     """)
 
@@ -619,7 +620,7 @@ if df is not None:
                 st.write("3️⃣", f"**Mean Absolute Error (MAE)**: *{mae:.2f}*")
                 st.markdown(
                     """
-                    - MAE measures the **average magnitude of the errors** in a set of predictions, without considering their direction.
+                    - MAE measures the **Average Magnitude of the Errors** in a set of predictions, without considering their direction
                         > An MAE of 1.37 indicates that the model's predictions deviate from the actual values by an average of 1.37 units.
                     """)
 
