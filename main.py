@@ -828,7 +828,7 @@ if df is not None:
                 
                 st.markdown("""
                     - *F1-Score*
-                        The harmonic mean of precision and recall, balancing both metrics:
+                        > The harmonic mean of precision and recall, balancing both metrics:
                 """)
                 st.latex(r"F1 = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}")
                 
