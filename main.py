@@ -611,7 +611,8 @@ if df is not None:
                 st.markdown(
                     """
                     - This represents the mean of the **Difference** between *Observed* and *Predicted* values.
-                    - Use **Mean Residual** to check if the model has an overall bias on predict actual value.(`≈0`: no bias | `>0`: Underestimate | `<0`: Overestimate)
+                    - Use **Mean Residual** to check if the model has an overall bias on predict actual value.
+                        > `≈0`: *No bias*, `>0`: *Underestimate*, `<0`: *Overestimate*
                         > A value close to 0 implies that the model's predictions, on average, are unbiased.
                     """)
 
