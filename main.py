@@ -604,6 +604,7 @@ if df is not None:
                     - **R-squared** measures the proportion of variance in the target variable that is explained by the model.
                         > A score of 0.94 indicates that 94% of the variability in the target variable is explained by the model, which demonstrates a strong fit.
                     """)
+                st.latex(r"R^2 = 1 - \frac{\sum_{i=1}^n (y_i - \hat{y}_i)^2}{\sum_{i=1}^n (y_i - \bar{y})^2}")
 
                 st.divider()
                 
@@ -615,6 +616,7 @@ if df is not None:
                         - `≈0`: *No bias*, `>0`: *Underestimate*, `<0`: *Overestimate*
                         > A value close to 0 implies that the model's predictions, on average, are unbiased.
                     """)
+                st.latex(r"\text{Mean Residual} = \frac{1}{n} \sum_{i=1}^n (y_i - \hat{y}_i)")
 
                 st.divider()
                 
@@ -624,6 +626,7 @@ if df is not None:
                     - MAE measures the **Average Magnitude of the Errors** in a set of predictions, without considering their direction
                         > An MAE of 1.37 indicates that the model's predictions deviate from the actual values by an average of 1.37 units.
                     """)
+                st.latex(r"\text{MAE} = \frac{1}{n} \sum_{i=1}^n \left| y_i - \hat{y}_i \right|")
 
                 st.divider()
                 
