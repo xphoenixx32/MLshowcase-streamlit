@@ -733,8 +733,8 @@ if df is not None:
                         - Each line represents how the model's prediction changes for a single data point as the chosen feature varies.
                         - Variation in line shapes indicates heterogeneity in the feature's effect.
                     ''')
-
-                    for i in [feature_1, feature_2]:
+                    
+                    for i in (feature_1, feature_2):
                         st.markdown(f'''
                         Feature : ***{i}***
                         ''')
@@ -744,8 +744,7 @@ if df is not None:
                             X = X,
                             features = [i],
                             kind = "both",
-                            ax = ax_ice,
-                            n_jobs = 1  # Disable parallel processing
+                            ax = ax_ice
                         )
                         st.pyplot(fig_ice)
 
@@ -991,7 +990,7 @@ if df is not None:
                     - Variation in line shapes indicates heterogeneity in the feature's effect.
                 ''')
 
-                for i in [feature_1, feature_2]:
+                for i in (feature_1, feature_2):
                     st.markdown(f'''
                     Feature : ***{i}***
                     ''')
@@ -1001,8 +1000,7 @@ if df is not None:
                         X = X,
                         features = [i],
                         kind = "individual",
-                        ax = ax_ice,
-                        n_jobs = 1  # Disable parallel processing
+                        ax = ax_ice
                     )
                     st.pyplot(fig_ice)
 
