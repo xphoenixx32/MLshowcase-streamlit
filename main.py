@@ -718,6 +718,8 @@ if df is not None:
                 
                 feature_1 = st.selectbox("Select Feature 1:", X.columns)
                 feature_2 = st.selectbox("Select Feature 2:", X.columns)
+
+                st.divider()
         
                 if feature_1 and feature_2:
                     st.write("### *Individual Conditional Expectation (ICE)*")
@@ -731,6 +733,9 @@ if df is not None:
                     ''')
 
                     for i in [feature_1, feature_2]:
+                        st.markdown(f'''
+                        Feature : ***{i}***
+                        ''')
                         fig_ice, ax_ice = plt.subplots(figsize = (10, 6))
                         PartialDependenceDisplay.from_estimator(
                             estimator = best_model,
@@ -967,11 +972,43 @@ if df is not None:
         
             with tab32:
                 st.caption("*Classification Showcase using The **Bagging** Method in Ensemble Learning*")
-                st.write("### *2D Partial Dependence Plot*")
 
+                feature_1 = st.selectbox("Select Feature 1:", X.columns)
+                feature_2 = st.selectbox("Select Feature 2:", X.columns)
+                
+                st.divider()
+                
+                # ICE plot
                 st.info('''
-                    ℹ️ 2D Partial Dependence Plot (PDP) shows how two features influence the predicted outcome of a machine learning model, while keeping all other features constant.
-                    > This plot Helps identify *interactions* between key features, providing valuable insights.
+                    ℹ️ An ICE plot visualizes the effect of a single feature on the prediction for individual data points.
+                    > While holding all the other feature **constant** values
+                ''')
+                st.success('''
+                    - Each line represents how the model's prediction changes for a single data point as the chosen feature varies.
+                    - Variation in line shapes indicates heterogeneity in the feature's effect.
+                ''')
+
+                for i in [feature_1, feature_2]:
+                    st.markdown(f'''
+                    Feature : ***{i}***
+                    ''')
+                    fig_ice, ax_ice = plt.subplots(figsize = (10, 6))
+                    PartialDependenceDisplay.from_estimator(
+                        estimator = best_model,
+                        X = X,
+                        features = [i],
+                        kind = "individual",
+                        ax = ax_ice
+                    )
+                    st.pyplot(fig_ice)
+
+                st.divider()
+
+                # PDP plot
+                st.write("### *2-Dimensional Partial Dependence Plot (PDP)*")
+                st.info('''
+                    ℹ️ 2D PDP plot shows how two features influence the predicted outcome of a machine learning model, while keeping all other features constant.
+                    > This plot Helps identify *Interactions* between key features, providing valuable insights.
                 ''')
                 st.success('''
                     Color or Height represents the model's prediction value. 
@@ -979,20 +1016,15 @@ if df is not None:
                     - Distinct *Peaks* or *Valleys* indicate **significant interaction** effects
                 ''')
                 
-                feature_1 = st.selectbox("Select Feature 1:", X.columns)
-                feature_2 = st.selectbox("Select Feature 2:", X.columns)
-        
-                if feature_1 and feature_2:
-                    fig_pdp, ax_pdp = plt.subplots(figsize = (10, 6))
-                    PartialDependenceDisplay.from_estimator(
-                        estimator = best_model,
-                        X = X,
-                        features = [(feature_1, feature_2)],
-                        kind = "average",
-                        target = 1,  
-                        ax = ax_pdp
-                    )
-                    st.pyplot(fig_pdp)
+                fig_pdp, ax_pdp = plt.subplots(figsize = (10, 6))
+                PartialDependenceDisplay.from_estimator(
+                    estimator = best_model,
+                    X = X,
+                    features = [(feature_1, feature_2)],
+                    kind = "average",
+                    ax = ax_pdp
+                )
+                st.pyplot(fig_pdp)
         
             with tab33:
                 st.caption("*Classification Showcase using The **Bagging** Method in Ensemble Learning*")
