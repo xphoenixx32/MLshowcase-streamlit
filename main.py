@@ -77,13 +77,13 @@ dataset_columns = {
 # Allow user to upload a file or choose a predefined dataset
 with st.sidebar:
     selected_dataset = st.selectbox(
-        "👾 *Choose a Dataset*",
-        ['None'] + dataset_options  # Add 'None' for default empty selection
+        "👾 *Choose a Dataset* ⤵️",
+        ['-- null --'] + dataset_options  # Add 'None' for default empty selection
     )
     #------------------------------------------------------------------------------------------------------#
 
 # Load the selected dataset or uploaded file
-if selected_dataset != 'None':
+if selected_dataset != '-- null --':
     df = sns.load_dataset(selected_dataset)
     st.success(f"✅ Have Loaded <`{selected_dataset}`> dataset from Seaborn!")
 else:
@@ -103,10 +103,10 @@ with st.container():
 # Proceed only if a dataset is loaded
 if df is not None:
     if selected == "Summary":
-        tab00, tab01, tab02, tab03 = st.tabs(['⌈ ⁰ Dataset Intro ⌉', 
-                                              '⌈ ¹ Columns Info ⌉',
-                                              '⌈ ² Dtypes Info ⌉', 
-                                              '⌈ ³ Filter & View ⌉'])
+        tab00, tab01, tab02, tab03 = st.tabs(['⌈⁰ Dataset Intro ⌉', 
+                                              '⌈¹ Columns Info ⌉',
+                                              '⌈² Dtypes Info ⌉', 
+                                              '⌈³ Filter & View ⌉'])
         with tab00:
             st.subheader("🪄 Brief Intro to this Data")
             st.info(dataset_summaries[selected_dataset], icon = "ℹ️")
@@ -115,11 +115,10 @@ if df is not None:
             if selected_dataset in dataset_columns:
                 st.subheader("🪄 Definitions of the Columns")
                 for col, desc in dataset_columns[selected_dataset].items():
-                    st.info(f'''
-                    ***{col}***: 
-                    - {desc}
+                    st.markdown(f'''
+                    **{col}**:
+                    > *{desc}*
                     ''')
-                    st.divider()
         #------------------------------------------------------------------------------------------------------#
         with tab02:
             st.warning(" Summary & Data types of the Dataset ", icon = "🕹️")
@@ -184,11 +183,11 @@ if df is not None:
                 st.write(group_stats.sort_values('counts', ascending = False))
     #------------------------------------------------------------------------------------------------------#
     if selected == "EDA Plot":
-        tab10, tab11, tab12, tab13, tab14 = st.tabs(['⌈ ⁰ ANOVA & 1 Categorical Plot ⌉', 
-                                                     '⌈ ¹ Groupby 2+ Categorical Plot ⌉', 
-                                                     '⌈ ² Cross 2 Numeric Plot ⌉', 
-                                                     '⌈ ³ Diagnosis Multi-Collinearity ⌉',
-                                                     '⌈ ⁴ Overall Correlation ⌉'])
+        tab10, tab11, tab12, tab13, tab14 = st.tabs(['⌈⁰ ANOVA & 1 Categorical Plot ⌉', 
+                                                     '⌈¹ Groupby 2+ Categorical Plot ⌉', 
+                                                     '⌈² Cross 2 Numeric Plot ⌉', 
+                                                     '⌈³ Diagnosis Multi-Collinearity ⌉',
+                                                     '⌈⁴ Overall Correlation ⌉'])
         #------------------------------------------------------------------------------------------------------#
         with tab10:
             st.markdown('''
@@ -566,10 +565,10 @@ if df is not None:
                 st.write("Ensure your dataset contains both numeric and categorical columns.", icon = "❗")
     #------------------------------------------------------------------------------------------------------#
     if selected == "ML & XAI":
-        tab30, tab31, tab32, tab33 = st.tabs(['⌈ ⁰ Model Summary ⌉',
-                                              '⌈ ¹ Feature Importance ⌉',
-                                              '⌈ ² Interaction Effect ⌉',
-                                              '⌈ ³ Prediction on Sample ⌉'])
+        tab30, tab31, tab32, tab33 = st.tabs(['⌈⁰ Model Summary ⌉',
+                                              '⌈¹ Feature Importance ⌉',
+                                              '⌈² Interaction Effect ⌉',
+                                              '⌈³ Prediction on Sample ⌉'])
         
         # ------------------------------------------- #
         # MPG (Regression)
@@ -716,22 +715,45 @@ if df is not None:
         
             with tab32:
                 st.caption("*Regression Showcase using The **Boosting** Method in Ensemble Learning*")
-                st.write("### *2D Partial Dependence Plot*")
-                
-                st.info('''
-                    ℹ️ 2D Partial Dependence Plot (PDP) shows how two features influence the predicted outcome of a machine learning model, while keeping all other features constant.
-                    > This plot Helps identify *interactions* between key features, providing valuable insights.
-                ''')
-                st.success('''
-                    Color or Height represents the model's prediction value. 
-                    - A *Smooth* surface suggests **minimal interaction** between the two features
-                    - Distinct *Peaks* or *Valleys* indicate **significant interaction** effects
-                ''')
                 
                 feature_1 = st.selectbox("Select Feature 1:", X.columns)
                 feature_2 = st.selectbox("Select Feature 2:", X.columns)
         
                 if feature_1 and feature_2:
+                    st.write("### *Individual Conditional Expectation (ICE)*")
+                    st.info('''
+                        ℹ️ An ICE plot visualizes the effect of a single feature on the prediction for individual data points.
+                        > While holding all the other feature **constant** values
+                    ''')
+                    st.success('''
+                        - Each line represents how the model's prediction changes for a single data point as the chosen feature varies.
+                        - Variation in line shapes indicates heterogeneity in the feature's effect.
+                    ''')
+
+                    for i in [feature_1, feature_2]:
+                        fig_ice, ax_ice = plt.subplots(figsize = (10, 6))
+                        PartialDependenceDisplay.from_estimator(
+                            estimator = best_model,
+                            X = X,
+                            features = [i],
+                            kind = "individual",
+                            ax = ax_ice
+                        )
+                        st.pyplot(fig_ice)
+
+                    st.divider()
+                    
+                    st.write("### *2-Dimensional Partial Dependence Plot (PDP)*")
+                    st.info('''
+                        ℹ️ 2D PDP plot shows how two features influence the predicted outcome of a machine learning model, while keeping all other features constant.
+                        > This plot Helps identify *Interactions* between key features, providing valuable insights.
+                    ''')
+                    st.success('''
+                        Color or Height represents the model's prediction value. 
+                        - A *Smooth* surface suggests **minimal interaction** between the two features
+                        - Distinct *Peaks* or *Valleys* indicate **significant interaction** effects
+                    ''')
+                    
                     fig_pdp, ax_pdp = plt.subplots(figsize = (10, 6))
                     PartialDependenceDisplay.from_estimator(
                         estimator = best_model,
