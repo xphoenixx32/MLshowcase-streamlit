@@ -989,20 +989,41 @@ if df is not None:
                     - Each line represents how the model's prediction changes for a single data point as the chosen feature varies.
                     - Variation in line shapes indicates heterogeneity in the feature's effect.
                 ''')
+                def plot_ice(feature):
+                    st.markdown(f"**Feature:** ***{feature}***")
+                    fig_ice, ax_ice = plt.subplots(figsize=(10, 6))
+                    try:
+                        PartialDependenceDisplay.from_estimator(
+                            estimator = best_model,
+                            X = X,
+                            features = [feature],
+                            kind = "both",
+                            ax = ax_ice,
+                            n_jobs = 1  # Disable parallel processing for debugging
+                        )
+                        st.pyplot(fig_ice)
+                    except Exception as e:
+                        st.error(f"An error occurred while plotting ICE for {feature}: {e}")
+                        st.text(traceback.format_exc())
+                    finally:
+                        plt.close(fig_ice)  # Close the figure to free memory
 
-                for i in (feature_1, feature_2):
-                    st.markdown(f'''
-                    Feature : ***{i}***
-                    ''')
-                    fig_ice, ax_ice = plt.subplots(figsize = (10, 6))
-                    PartialDependenceDisplay.from_estimator(
-                        estimator = best_model,
-                        X = X,
-                        features = [i],
-                        kind = "individual",
-                        ax = ax_ice
-                    )
-                    st.pyplot(fig_ice)
+                # Plot ICE for both features
+                for feature in [feature_1, feature_2]:
+                    plot_ice(feature)
+                # for i in (feature_1, feature_2):
+                #     st.markdown(f'''
+                #     Feature : ***{i}***
+                #     ''')
+                #     fig_ice, ax_ice = plt.subplots(figsize = (10, 6))
+                #     PartialDependenceDisplay.from_estimator(
+                #         estimator = best_model,
+                #         X = X,
+                #         features = [i],
+                #         kind = "individual",
+                #         ax = ax_ice
+                #     )
+                #     st.pyplot(fig_ice)
 
                 st.divider()
 
