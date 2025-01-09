@@ -743,7 +743,7 @@ if df is not None:
                             estimator = best_model,
                             X = X,
                             features = [i],
-                            kind = "individual",
+                            kind = "both",
                             ax = ax_ice,
                             n_jobs = 1  # Disable parallel processing
                         )
