@@ -89,19 +89,20 @@ if selected_dataset != '-- null --':
 else:
     df = None
 #------------------------------------------------------------------------------------------------------#
-st.subheader("🕹️  *Switch Tab* ")
-
-# Option Menu
-with st.container():
-    selected = option_menu(
-        menu_title = None,
-        options = ["Summary", "EDA Plot", "ML & XAI"],
-        icons = ["blockquote-left", "bar-chart-line-fill", "diagram-3-fill"],
-        orientation = 'horizontal'
-    )
 
 # Proceed only if a dataset is loaded
 if df is not None:
+    st.subheader("🕹️  *Switch Tab* ")
+
+    # Option Menu
+    with st.container():
+        selected = option_menu(
+            menu_title = None,
+            options = ["Summary", "EDA Plot", "ML & XAI"],
+            icons = ["blockquote-left", "bar-chart-line-fill", "diagram-3-fill"],
+            orientation = 'horizontal'
+        )
+    
     if selected == "Summary":
         tab00, tab01, tab02, tab03 = st.tabs(['⌈⁰ Dataset Intro ⌉', 
                                               '⌈¹ Columns Info ⌉',
@@ -1049,4 +1050,7 @@ if df is not None:
                     st.pyplot(fig_waterfall)
     #------------------------------------------------------------------------------------------------------#
 else:
-    st.error('Click TOP-LEFT Side Bar Navigation to GET STARTED', icon = "📎")
+    st.error('''
+    📎 Click TOP-LEFT **>** to GET STARTED
+    ''')
+    st.image('assets/diagram-export.png')
