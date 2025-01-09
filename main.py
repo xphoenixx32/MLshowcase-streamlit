@@ -1021,32 +1021,65 @@ if df is not None:
                 
                 # Function to determine if a feature is binary
                 def is_binary(feature, data):
-                    unique_values = data[feature].nunique()
-                    return unique_values == 2
+                    unique_values = data[feature].dropna().unique()
+                    return len(unique_values) == 2
             
                 # Function to plot ICE or Partial Dependence based on feature type
                 def plot_feature(feature):
                     st.markdown(f"**Feature:** ***{feature}***")
+            
+                    # Debugging: Check unique values and missing values
+                    unique_vals = X[feature].unique()
+                    num_unique = X[feature].nunique(dropna=True)
+                    num_missing = X[feature].isnull().sum()
+                    st.write(f"Feature '{feature}' has {num_unique} unique values: {unique_vals}")
+                    st.write(f"Feature '{feature}' has {num_missing} missing values.")
+            
+                    # Check model's classes
+                    if hasattr(best_model, 'classes_'):
+                        st.write(f"Model classes: {best_model.classes_}")
+                    else:
+                        st.write("The model does not have the 'classes_' attribute. It may not be a classifier.")
+            
+                    # Check model's predict_proba output
+                    if hasattr(best_model, 'predict_proba'):
+                        try:
+                            sample_probs = best_model.predict_proba(X.iloc[:5])
+                            st.write(f"Sample predict_proba output:\n{sample_probs}")
+                        except Exception as e:
+                            st.error(f"Error during predict_proba: {e}")
+                    else:
+                        st.write("The model does not have the 'predict_proba' method.")
+            
                     fig, ax = plt.subplots(figsize=(10, 6))
                     try:
                         if is_binary(feature, X):
                             st.warning(f"⚠️ **{feature}** is a binary feature. Displaying Average Partial Dependence Plot instead of ICE.")
+                            
+                            # Determine target class if possible
+                            if hasattr(best_model, 'classes_') and len(best_model.classes_) == 2:
+                                target_class = best_model.classes_[1]  # Typically the positive class
+                                st.write(f"Plotting Partial Dependence for class: {target_class}")
+                            else:
+                                target_class = None  # Let scikit-learn decide
+            
                             PartialDependenceDisplay.from_estimator(
-                                estimator=best_model,
-                                X=X,
-                                features=[feature],
-                                kind="average",  # Use average partial dependence for binary features
-                                ax=ax,
-                                n_jobs=1  # Disable parallel processing for debugging
+                                estimator = best_model,
+                                X = X,
+                                features = [feature],
+                                kind = "average",  # Average Partial Dependence
+                                target = target_class,  # Specify target class if binary classifier
+                                ax = ax,
+                                n_jobs = 1
                             )
                         else:
                             PartialDependenceDisplay.from_estimator(
-                                estimator=best_model,
-                                X=X,
-                                features=[feature],
-                                kind="individual",  # ICE plot for non-binary features
-                                ax=ax,
-                                n_jobs=1  # Disable parallel processing for debugging
+                                estimator = best_model,
+                                X = X,
+                                features = [feature],
+                                kind = "individual",  # ICE plot for non-binary features
+                                ax = ax,
+                                n_jobs = 1
                             )
                         st.pyplot(fig)
                     except ValueError as ve:
