@@ -115,7 +115,11 @@ if df is not None:
             if selected_dataset in dataset_columns:
                 st.subheader("🪄 Definitions of the Columns")
                 for col, desc in dataset_columns[selected_dataset].items():
-                    st.markdown(f"**{col}**: {desc}")
+                    st.info(f'''
+                    ***{col}***: 
+                    - {desc}
+                    ''')
+                    st.divider()
         #------------------------------------------------------------------------------------------------------#
         with tab02:
             st.warning(" Summary & Data types of the Dataset ", icon = "🕹️")
