@@ -1028,6 +1028,10 @@ if df is not None:
                 def plot_feature(feature):
                     st.markdown(f"**Feature:** ***{feature}***")
             
+                    # If the feature is 'sex_male', convert it to integer
+                    if feature == 'sex_male':
+                        X['sex_male'] = X['sex_male'].astype(int)
+            
                     # Debugging: Check unique values and missing values
                     unique_vals = X[feature].unique()
                     num_unique = X[feature].nunique(dropna=True)
@@ -1055,7 +1059,7 @@ if df is not None:
                     try:
                         if is_binary(feature, X):
                             st.warning(f"⚠️ **{feature}** is a binary feature. Displaying Average Partial Dependence Plot instead of ICE.")
-                            
+            
                             # Determine target class if possible
                             if hasattr(best_model, 'classes_') and len(best_model.classes_) == 2:
                                 target_class = best_model.classes_[1]  # Typically the positive class
@@ -1064,22 +1068,22 @@ if df is not None:
                                 target_class = None  # Let scikit-learn decide
             
                             PartialDependenceDisplay.from_estimator(
-                                estimator = best_model,
-                                X = X,
-                                features = [feature],
-                                kind = "average",  # Average Partial Dependence
-                                target = target_class,  # Specify target class if binary classifier
-                                ax = ax,
-                                n_jobs = 1
+                                estimator=best_model,
+                                X=X,
+                                features=[feature],
+                                kind="average",  # Average Partial Dependence
+                                target=target_class,  # Specify target class if binary classifier
+                                ax=ax,
+                                n_jobs=1
                             )
                         else:
                             PartialDependenceDisplay.from_estimator(
-                                estimator = best_model,
-                                X = X,
-                                features = [feature],
-                                kind = "individual",  # ICE plot for non-binary features
-                                ax = ax,
-                                n_jobs = 1
+                                estimator=best_model,
+                                X=X,
+                                features=[feature],
+                                kind="individual",  # ICE plot for non-binary features
+                                ax=ax,
+                                n_jobs=1
                             )
                         st.pyplot(fig)
                     except ValueError as ve:
