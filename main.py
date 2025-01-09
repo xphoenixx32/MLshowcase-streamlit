@@ -21,6 +21,7 @@ from lightgbm import LGBMRegressor
 # UI
 from streamlit_option_menu import option_menu
 #------------------------------------------------------------------------------------------------------#
+st.set_page_config(layout = "wide")
 
 st.header(" 🎛️ Demo of *Machine Learning Model* & *Explainable AI* ")
 st.caption('''
