@@ -22,7 +22,7 @@ from lightgbm import LGBMRegressor
 from streamlit_option_menu import option_menu
 #------------------------------------------------------------------------------------------------------#
 
-st.title(" 🎛️ Demo of *Machine Learning Model* & *Explainable AI* ")
+st.header(" 🎛️ Demo of *Machine Learning Model* & *Explainable AI* ")
 st.caption('''
 *this app tries to standerdize a process of understanding a **Machine Learning Model** Performance with meaningful metrics & visualizations*
 ''')
