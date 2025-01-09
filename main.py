@@ -744,7 +744,8 @@ if df is not None:
                             X = X,
                             features = [i],
                             kind = "individual",
-                            ax = ax_ice
+                            ax = ax_ice,
+                            n_jobs = 1  # Disable parallel processing
                         )
                         st.pyplot(fig_ice)
 
@@ -1000,7 +1001,8 @@ if df is not None:
                         X = X,
                         features = [i],
                         kind = "individual",
-                        ax = ax_ice
+                        ax = ax_ice,
+                        n_jobs = 1  # Disable parallel processing
                     )
                     st.pyplot(fig_ice)
 
