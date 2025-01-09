@@ -734,19 +734,48 @@ if df is not None:
                         - Variation in line shapes indicates heterogeneity in the feature's effect.
                     ''')
                     
-                    for i in (feature_1, feature_2):
-                        st.markdown(f'''
-                        Feature : ***{i}***
-                        ''')
-                        fig_ice, ax_ice = plt.subplots(figsize = (10, 6))
-                        PartialDependenceDisplay.from_estimator(
-                            estimator = best_model,
-                            X = X,
-                            features = [i],
-                            kind = "both",
-                            ax = ax_ice
-                        )
-                        st.pyplot(fig_ice)
+                    # Function to determine if a feature is binary
+                    def is_binary(feature, data):
+                        unique_values = data[feature].nunique()
+                        return unique_values == 2
+                
+                    # Function to plot ICE or Partial Dependence based on feature type
+                    def plot_feature(feature):
+                        st.markdown(f"**Feature:** ***{feature}***")
+                        fig, ax = plt.subplots(figsize=(10, 6))
+                        try:
+                            if is_binary(feature, X):
+                                st.warning(f"⚠️ **{feature}** is a binary feature. Displaying Average Partial Dependence Plot instead of ICE.")
+                                PartialDependenceDisplay.from_estimator(
+                                    estimator=best_model,
+                                    X=X,
+                                    features=[feature],
+                                    kind="average",  # Use average partial dependence for binary features
+                                    ax=ax,
+                                    n_jobs=1  # Disable parallel processing for debugging
+                                )
+                            else:
+                                PartialDependenceDisplay.from_estimator(
+                                    estimator=best_model,
+                                    X=X,
+                                    features=[feature],
+                                    kind="individual",  # ICE plot for non-binary features
+                                    ax=ax,
+                                    n_jobs=1  # Disable parallel processing for debugging
+                                )
+                            st.pyplot(fig)
+                        except ValueError as ve:
+                            st.error(f"ValueError while plotting for {feature}: {ve}")
+                            st.text(traceback.format_exc())
+                        except Exception as e:
+                            st.error(f"An unexpected error occurred while plotting for {feature}: {e}")
+                            st.text(traceback.format_exc())
+                        finally:
+                            plt.close(fig)  # Free up memory
+                
+                    # Plot both selected features
+                    for feature in [feature_1, feature_2]:
+                        plot_feature(feature)
 
                     st.divider()
                     
@@ -989,41 +1018,49 @@ if df is not None:
                     - Each line represents how the model's prediction changes for a single data point as the chosen feature varies.
                     - Variation in line shapes indicates heterogeneity in the feature's effect.
                 ''')
-                def plot_ice(feature):
+                
+                # Function to determine if a feature is binary
+                def is_binary(feature, data):
+                    unique_values = data[feature].nunique()
+                    return unique_values == 2
+            
+                # Function to plot ICE or Partial Dependence based on feature type
+                def plot_feature(feature):
                     st.markdown(f"**Feature:** ***{feature}***")
-                    fig_ice, ax_ice = plt.subplots(figsize=(10, 6))
+                    fig, ax = plt.subplots(figsize=(10, 6))
                     try:
-                        PartialDependenceDisplay.from_estimator(
-                            estimator = best_model,
-                            X = X,
-                            features = [feature],
-                            kind = "both",
-                            ax = ax_ice,
-                            n_jobs = 1  # Disable parallel processing for debugging
-                        )
-                        st.pyplot(fig_ice)
+                        if is_binary(feature, X):
+                            st.warning(f"⚠️ **{feature}** is a binary feature. Displaying Average Partial Dependence Plot instead of ICE.")
+                            PartialDependenceDisplay.from_estimator(
+                                estimator=best_model,
+                                X=X,
+                                features=[feature],
+                                kind="average",  # Use average partial dependence for binary features
+                                ax=ax,
+                                n_jobs=1  # Disable parallel processing for debugging
+                            )
+                        else:
+                            PartialDependenceDisplay.from_estimator(
+                                estimator=best_model,
+                                X=X,
+                                features=[feature],
+                                kind="individual",  # ICE plot for non-binary features
+                                ax=ax,
+                                n_jobs=1  # Disable parallel processing for debugging
+                            )
+                        st.pyplot(fig)
+                    except ValueError as ve:
+                        st.error(f"ValueError while plotting for {feature}: {ve}")
+                        st.text(traceback.format_exc())
                     except Exception as e:
-                        st.error(f"An error occurred while plotting ICE for {feature}: {e}")
+                        st.error(f"An unexpected error occurred while plotting for {feature}: {e}")
                         st.text(traceback.format_exc())
                     finally:
-                        plt.close(fig_ice)  # Close the figure to free memory
-
-                # Plot ICE for both features
+                        plt.close(fig)  # Free up memory
+            
+                # Plot both selected features
                 for feature in [feature_1, feature_2]:
-                    plot_ice(feature)
-                # for i in (feature_1, feature_2):
-                #     st.markdown(f'''
-                #     Feature : ***{i}***
-                #     ''')
-                #     fig_ice, ax_ice = plt.subplots(figsize = (10, 6))
-                #     PartialDependenceDisplay.from_estimator(
-                #         estimator = best_model,
-                #         X = X,
-                #         features = [i],
-                #         kind = "individual",
-                #         ax = ax_ice
-                #     )
-                #     st.pyplot(fig_ice)
+                    plot_feature(feature)
 
                 st.divider()
 
