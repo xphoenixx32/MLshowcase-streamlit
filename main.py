@@ -187,7 +187,7 @@ if df is not None:
         tab10, tab11, tab12, tab13, tab14 = st.tabs(['⌈⁰ ANOVA & 1 Categorical Plot ⌉', 
                                                      '⌈¹ Groupby 2+ Categorical Plot ⌉', 
                                                      '⌈² Cross 2 Numeric Plot ⌉', 
-                                                     '⌈³ Diagnosis Multi-Collinearity ⌉',
+                                                     '⌈³ Diagnose Multi-Collinearity ⌉',
                                                      '⌈⁴ Overall Correlation ⌉'])
         #------------------------------------------------------------------------------------------------------#
         with tab10:
